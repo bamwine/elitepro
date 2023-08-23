@@ -1,0 +1,356 @@
+@import url("font_awesome/css/font-awesome.min.css");
+@import url("ionicons/css/ionicons.min.css");
+@import url("material-design-iconic-font/css/material-design-iconic-font.min.css");
+
+.login-form {
+  text-align: center;
+  width: 80%;
+  margin: 60px auto 0;
+}
+
+input[type=email], input[type=password] {
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  outline: none;
+  height: 100%;
+  padding-top: 15px;
+  padding-bottom: 16px;
+}
+
+.login-image {
+  width: 100%;
+  
+  text-align: center;
+  color: black;
+  padding: 30px 0;
+  line-height: 1.4; 
+  text-shadow: rgba(0, 0, 0, 0.4) 0px 1px 0px
+}
+
+.login-button {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.forgot-password {
+  display: block;
+  margin: 8px auto 0 auto;
+  font-size: 14px;
+}
+
+/*  end login form */
+
+
+.form-row {
+  margin: 4px;
+}
+
+.width-full {
+  width: 100%;
+}
+
+.width-half {
+  width: 48%;
+}
+
+.lucent {
+  opacity: 0.4;
+}
+
+.note {
+  margin: 12px 8px;
+  font-size: 13px;
+}
+
+.vspc {
+  margin-top: 20px;
+}
+
+.formarea {
+  width: 90%;
+  margin: 50px auto 0px auto;
+}
+
+input[type=text],
+input[type=password] {
+  height: 40px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/*   end registration form */
+
+.inbox-interface {
+  background-color: #D32F2F;
+}
+
+.inbox-interface:active {
+  background-color: #D32F2F;
+}
+
+.inbox-interface * {
+  color: #FFFFFF;
+}
+
+.inbox-li {
+  line-height: 1;
+  padding: 12px 16px 12px 16px;
+  font-weight: 400;
+  font-family: 'Roboto', sans-serif;
+}
+
+.inbox-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.inbox-clip-icon {
+  vertical-align: -20%;
+  font-size: 18px;
+  margin-right: 4px;
+}
+
+.inbox-details {
+  float: right;
+  font-size: 12px;
+  color: #757575;
+}
+
+.inbox-date {
+  margin-left: 5px;
+  font-weight: 400;
+  color: #2979FF;
+}
+
+.inbox-from {
+  margin-bottom: 6px;
+}
+
+.inbox-name {
+  font-size: 16px;
+  font-weight: 400;
+  margin: 0px;
+}
+
+.inbox-subject {
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 400;
+  padding-right: 30px;
+  display: block;
+  line-height: 1.15;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.inbox-message {
+  margin-top: 4px;
+  font-size: 14px;
+  color: #757575;
+  line-height: 1.15;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.inbox-fav-star {
+  margin-top: -15px;
+  padding-left: 10px;
+  font-size: 30px;
+  float: right;
+  color: rgba(0,0,0,0.50);
+}
+
+.inbox-fav-star > ons-icon {
+  vertical-align: -18%;
+}
+
+/*   end registration form */
+
+
+.profile-card {
+  width: 100%;
+  text-align: center;
+  color: black;
+  padding: 30px 0;
+  line-height: 1.4;
+  background-color: purple;
+  text-shadow: rgba(0, 0, 0, 0.4) 0px 1px 0px;
+}
+
+.profile-image {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border 1px solid white;
+  box-shadow:rgba(0, 0, 0, 0.2) 0px 2px 0px 0px;
+  -webkit-box-shadow:rgba(0, 0, 0, 0.2) 0px 2px 0px 0px;
+}
+
+.profile-name {
+  margin: 20px 0 0 0;
+  font-weight: 600;
+  font-size: 17px;
+}
+
+.profile-id {
+  margin: 0 0 5px 0;
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+.profile-desc {
+  font-size: 15px;
+  opacity: 0.6;
+  width: 90%;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.info-col {
+  height: 60px;
+  line-height: 1;
+  padding: 12px 0 12px 4px;
+}
+
+.info-num {
+  font-size: 16px;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.info-unit {
+  margin-top: 6px;
+  font-size: 14px;
+  opacity: 0.4;
+}
+
+/*   end profile */
+
+
+.contact-interface {
+  background-color: #7CB342;
+}
+
+.contact-interface-text {
+  color: #7CB342;
+}
+
+.contact-interface * {
+  color: #FFFFFF;
+}
+
+.page__content {
+  background-color: #F5F5F5 !important;
+}
+
+.contact-toolbar-buttons * {
+  padding-right: 6px;
+}
+
+.contact-block {
+  background-color: white;
+  margin: 12px 8px 12px 8px;
+  border: 1px solid #ddd;
+  border-top: none;
+  -webkit-border-radius: 4px;
+  border-radius: 2px;
+  background-image: none;
+  box-shadow: 0 3px 2px -2px rgba(0, 0, 0, 0.33);
+}
+
+.contact-block-li {
+  padding: 0 0 0 0;
+  line-height: 1;
+  font-weight: 400;
+  font-family: 'Roboto', 'Noto', sans-serif;
+}
+
+.contact-block-li ons-col {
+  padding: 10px 16px 10px 0px;
+}
+
+.contact-block-li ons-col.contact-block-col-left {
+  padding-left: 16px;
+  margin-right: 16px;
+}
+
+.contact-block-subdivision ons-col:not(.contact-block-col-left) {
+  
+}
+
+.contact-block-header {
+  padding: 10px 16px 10px 16px;
+  border-bottom: 1px solid #ddd !important;
+}
+
+.contact-block-footer {
+  border-top: 1px solid #ddd;
+}
+
+.contact-icon-container {
+  text-align: center;
+}
+
+.contact-block-item-title {
+  margin-top: 4px;
+  font-size: 16px;
+  font-weight: 500;
+  padding-right: 30px;
+  display: block;
+  line-height: 1.15;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.contact-block-item-details {
+  margin-top: 4px;
+  font-size: 14px;
+  color: #757575;
+  line-height: 1.15;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.contact-extra-container {
+  text-align: center;
+  float: right;
+}
+
+.contact-extra {
+  font-size: 30px;
+  margin-top: -4px;
+}
+
+.contact-extra ons-icon {
+  padding-right: 3px;
+}
+
+.contact-extra-seeall ons-icon {
+  opacity: 0.4;
+}
+
+.contact-about {
+  padding: 10px 16px 10px 16px;
+}
+
+.rotate45 {
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/*   end contact profile */
+
+ons-list-item,a{
+outline: none !important;
+text-decoration: none;
+background-repeat: none;
+background-position: none;
+}
+

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="theme-color" content="red">
+  <link rel="stylesheet" href="css/onsenui.css">
+  <link rel="stylesheet" href="css/onsen-css-components.min.css">
+  <script src="css/onsenui.min.js"></script>
+  <script type="text/javascript">
+  document.addEventListener('init', function(event) {
+  var page = event.target;
+
+  if (page.id === 'page1') {
+    page.querySelector('#push-button').onclick = function() {
+      document.querySelector('#myNavigator').pushPage('page2.html', {data: {title: 'Page 2'}});
+    };
+  } else if (page.id === 'page2') {
+    page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+  }
+});
+
+
+const login = () => {
+  const username = document.querySelector('#username').value;
+  const password = document.querySelector('#password').value;
+
+  if (username === 'user' && password === 'pass') {
+    // call the navigator to move to the new page
+    const navigator = document.querySelector('#navigator');
+    navigator.resetToPage('home.html');
+  } else {
+    ons.notification.alert('Wrong username/password combination');
+  }
+}
+
+  </script>
+  
+  <style>
+  
+  .login-form {
+  text-align: center;
+  width: 80%;
+  margin: 60px auto 0;
+}
+
+input[type=email], input[type=password] {
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  outline: none;
+  height: 100%;
+  padding-top: 15px;
+  padding-bottom: 16px;
+}
+
+.login-button {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.forgot-password {
+  display: block;
+  margin: 8px auto 0 auto;
+  font-size: 14px;
+}
+
+  </style>
+  
+</head>
+<body>
+    <ons-page>
+      <ons-toolbar>
+        <div class="center">Log In</div>
+        <div class="right"><ons-toolbar-button>Close</ons-toolbar-button></div>
+      </ons-toolbar>
+
+      <div class="login-form">
+
+        <input type="email" class="text-input--underbar" placeholder="Email" value="">
+        <input type="password" class="text-input--underbar" placeholder="Password" value="">
+        <br><br>
+        <ons-button modifier="large" class="login-button">Log In</ons-button>
+        <br><br>
+        <ons-button modifier="quiet" class="forgot-password">Forgot password?</ons-button>
+      </div>
+
+    </ons-page>
+
+  </body>
+</html>
