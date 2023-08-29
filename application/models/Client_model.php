@@ -49,7 +49,7 @@ class Client_model extends CI_Model
 	{
 		$username = $this->input->post('uname');
 		$password = $this->input->post('password');
-		$res = $this->db->query('SELECT * FROM clients where clt_name = "'.$username.'" or clt_phone = "'.$user_name.'"  and clt_passwd = "'.sha1(md5($password)).'" and clt_status="open" ');
+		$res = $this->db->query('SELECT * FROM clients where clt_name = "'.$username.'" or clt_phone = "'.$username.'"  and clt_passwd = "'.sha1(md5($password)).'" and clt_status="open" ');
 
 		return !empty($res->row()->clt_status)=="open" ? 1 : 0;
 	}
@@ -110,6 +110,37 @@ class Client_model extends CI_Model
 		return $res->$values;
 	}
 	
+	public function get_clientdetails2($passd)
+	{
+		$res = $this->db->query('SELECT * FROM clients where clt_id = "'.$this->session->userdata('cltid').'" and clt_btc_paswd = "'.$passd.'"');
+      
+		//$res=	$this->db->get_where('clients',array('clt_id'=>$this->session->userdata('cltid'),'clt_phone'=>$this->session->userdata('phone'),'clt_btc_paswd'=>$passd))->row();
+
+		if ($res->num_rows() > 0){
+        return true;
+    }
+    else{
+        return false;
+    }
+	
+		
+	}
+	
+	public function get_clientpaymentwith()
+	{
+		
+		$walletname =$this->input->post('wallet');
+		$walletaddress =$this->input->post('trcwallet');
+		$data = array(				
+				'clt_btc_wallet' => $walletname,
+				'clt_btc_add' => $walletaddress,
+				);
+				
+		$this->db->where('clt_id',$this->session->userdata('cltid'),'clt_phone',$this->session->userdata('phone'));
+		$res = $this->db->update('clients' , $data);
+		return $res ? 1 : 0;
+	}
+	
 	
 	public function get_clientdeposit()
 	{
@@ -119,11 +150,23 @@ class Client_model extends CI_Model
 		return $res->result_array() > 0 ? $res->result_array() : 0;
 	}
 	
-	public function get_clientwithdraw()
+	public function get_clientwithdraw($data)
 	{
+		$res="";
+		if($data==""){
 		$this->db->order_by('phd_id', 'DESC');
-		$res=	$this->db->get_where('transct',array('tr_clt_id'=>$this->session->userdata('cltid'),'tr_type'=>"withdraw"));
-
+		$res=	$this->db->get_where('transct',array('tr_clt_id'=>$this->session->userdata('cltid'),'tr_type'=>"withdraw",'tr_status'=>"success"));
+	   }
+	   
+	   if($data=="pending"){
+		$this->db->order_by('phd_id', 'DESC');
+		$res=	$this->db->get_where('transct',array('tr_clt_id'=>$this->session->userdata('cltid'),'tr_type'=>"withdraw",'tr_status'=>"pending"));
+	   }
+	   
+	   if($data=="failed"){
+		$this->db->order_by('phd_id', 'DESC');
+		$res=	$this->db->get_where('transct',array('tr_clt_id'=>$this->session->userdata('cltid'),'tr_type'=>"withdraw",'tr_status'=>"failed"));
+	   }
 		return $res->result_array() > 0 ? $res->result_array() : 0;
 	}
 	
@@ -168,9 +211,9 @@ class Client_model extends CI_Model
 				'tr_update' =>date('Y-m-d h:i:s'),				
 				'tr_date'=> date('Y-m-d h:i:s'),
 				'tr_type'=>"withdraw",
-				'tr_paswd' =>$this->input->post('cltwithpas'),
-				'tr_clt_address' =>$this->input->post('cltaddres'),
-				
+				'tr_paswd' =>$this->get_clientdetails('clt_btc_paswd')??'not set',
+				'tr_clt_address' =>$this->get_clientdetails('clt_btc_add')??'not set',
+				'tr_rechage' =>$this->get_clientdetails('clt_btc_wallet')??'not set',
 				);					
 			
 		$res = $this->db->insert("transct", $data);
@@ -593,5 +636,79 @@ $sections =$res->result_array();
 		}
 		return $level;
 	}
+	
+	public function get_ramdom_products()// load data on javascript popup
+	{
+			
+		//$res = $this->db->query('SELECT * FROM products ORDER BY RAND() LIMIT 1');
+		$res = $this->db->query('SELECT * FROM products WHERE pro_price BETWEEN '.$this->get_clientdetails("clt_level_money").' ORDER BY RAND() LIMIT 1');
+
+		return $res->num_rows() > 0 ? $res->row() : 0;
+	}
+	
+	public function get_clientrecords()
+	{
+		$this->db->order_by('id', 'DESC');
+		$res=	$this->db->get_where('records',array('clt_id'=>$this->session->userdata('cltid')));
+
+		return $res->result_array() > 0 ? $res->result_array() : 0;
+	}
+	
+	
+	
+	public function task_manger()
+	{
+		
+		//  insert into records;
+		$trdatec =date('Y-m-d h:i:s');
+		$prod_id = $this->input->post('prod_id');
+		$tr_id =  h_generate_transct_id();
+		$status = "success";		
+		// end  insert into records;
+		$res="";
+		$commssion = $this->input->post('commssion');
+		$datec = date('Y-m-d'); 
+		$clt_id =$this->session->userdata('cltid');
+		
+		$usertask = $this->get_clientdetails('clt_tasks'); 
+		$hold = $this->db->query('SELECT * FROM tasks where clt_id = "'.$clt_id.'" and created = "'.$datec.'"');
+      
+	  if ($hold->row()->count_id < $usertask) // makes sure client tasks dont exceced limit
+		{
+		if ($hold->num_rows() >0) // makes sure  if client has tasks for today
+		{
+			// $updateQuery = 'UPDATE tasks SET count_id = count_id + 1 WHERE clt_id = "'.$clt_id.'" and created = "'.$datec.'"';
+          $res = $this->db->query('UPDATE tasks SET count_id = count_id + 1 WHERE clt_id = "'.$clt_id.'" and created = "'.$datec.'" ');
+		  $res2 = $this->db->query('UPDATE clients SET clt_comsion = clt_comsion + "'.$commssion.'" ,clt_bal = clt_bal + "'.$commssion.'" WHERE clt_id = "'.$clt_id.'"  ');
+		  $res3 = $this->db->query('INSERT INTO records (pro_id,clt_id,date_transct,transct_id,status) VALUES ("'.$prod_id.'", "'.$clt_id.'", "'.$trdatec.'","'.$tr_id.'","'.$status.'") ');
+		  
+			
+		} else {
+			//$insertQuery = "INSERT INTO tasks (count_id, clt_id,created) VALUES (1,'$clt_id', '$datec')";
+           $res = $this->db->query('INSERT INTO tasks (count_id, clt_id,created) VALUES ("1", "'.$clt_id.'", "'.$datec.'") ');
+		   $res2 = $this->db->query('UPDATE clients SET clt_comsion = clt_comsion + "'.$commssion.'" ,clt_bal = clt_bal + "'.$commssion.'" WHERE clt_id = "'.$clt_id.'"  ');
+		  $res3 = $this->db->query('INSERT INTO records (pro_id,clt_id,date_transct,transct_id,status) VALUES ("'.$prod_id.'", "'.$clt_id.'", "'.$trdatec.'","'.$tr_id.'","'.$status.'") ');
+		  
+		}
+		return true;
+	}  else {
+		
+		return false;
+	}
+		
+		
+	}
+	
+	
+	public function checkaddress()
+	{
+		
+		$res = $this->db->query('SELECT * FROM clients WHERE clt_id = "'.$this->session->userdata('cltid').'" and clt_btc_add != "" and clt_btc_wallet != "" and clt_btc_paswd != "" ');
+      
+
+		return $res->num_rows() > 0 ? true:false ;
+	}
+	
+	
 	
 }

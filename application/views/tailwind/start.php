@@ -8,7 +8,8 @@
     <meta name="theme-color" content="#000000" />
     <link rel="shortcut icon" href="" />
     <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png" />
-    <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/daisyui@3.5.0_dist_full.css">
+    <?php include 'css.php';?>
+	<link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/daisyui@3.5.0_dist_full.css">
     <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/tailwind.min.css">
     <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/flowbite_1.8.0_flowbite.min.css">
     <script src="<?php echo base_url();?>phd/tailwind/vue@3.3.4_dist_vue.global.min.js"></script>
@@ -17,6 +18,9 @@
     <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/custom.css">
     <script src="<?php echo base_url();?>phd/tailwind/cdn.tailwindcss.com_3.3.3.js" />
     </script>
+	<link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/sweetalert2.min.css">
+	 <script src="<?php echo base_url();?>phd/tailwind/jquery-3.3.1.min.js"></script>
+	<script src="<?php echo base_url();?>phd/tailwind/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/vant@4.6.4_lib.css">
     <script src="<?php echo base_url();?>phd/tailwind/vant@4.6.4_lib.js"></script>
     <style>
@@ -46,7 +50,7 @@
     <div id="app" data-v-app="">
       <div class="w-full min-h-[100vh] bg-[#F8F9FC]">
         <div class="w-full min-h-[100vh]">
-          <div class="w-full flex justify-between items-center p-3 py-3 box-border bg-[var(--header-bg)]">
+          <div class="w-full flex justify-between items-center p-3 py-3 box-border bg-[white]">
             <div class="w-[9rem]">
               <img class="w-full" src="<?php echo base_url();?>phd/tailwind/logo.png" alt="">
             </div>
@@ -67,7 +71,7 @@
                       <!---->
                     </div>
                     <div class="flex items-center">
-                      <div class="text-black text-base font-semibold">Hi, <?php echo $this->session->userdata('username');?></div>
+                      <div class="text-black text-base font-semibold">Hi, <?php echo  $this->Client_model->get_clientdetails('clt_name'); ?></div>
                       <img class="w-5 ml-2" src="<?php echo base_url();?>phd/tailwind/welcome.png" alt="">
                     </div>
                   </div>
@@ -85,7 +89,7 @@
                       </div>
                     </div>
                     <div class="flex flex-col justify-around">
-                      <div class="text-sm text-[#FAAF36] font-bold mb-1"><?php echo $this->session->userdata('balance');?></div>
+                      <div class="text-sm text-[#FAAF36] font-bold mb-1"><?php echo  number_format($this->Client_model->get_clientdetails('clt_bal'),3); ?></div>
                       <div class="text-[#999] text-right text-xs">USDT</div>
                     </div>
                   </div>
@@ -100,7 +104,7 @@
                       </div>
                     </div>
                     <div class="flex flex-col justify-around">
-                      <div class="text-sm text-[#FAAF36] font-bold mb-1">0</div>
+                      <div class="text-sm text-[#FAAF36] font-bold mb-1"><?php echo  number_format($this->Client_model->get_clientdetails('clt_comsion'),3); ?></div>
                       <div class="text-[#999] text-right text-xs">USDT</div>
                     </div>
                   </div>
@@ -129,11 +133,11 @@
                       <img class="w-full" src="<?php echo base_url();?>phd/tailwind/left.png" alt="">
                     </div>
                     <div class="w-[50%]">
-                      <button type="button" class="van-button van-button--default van-button--large van-button--round" style="color: white; background: #FAAF36; border-color: #FAAF36;">
+                      <button type="button" data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="van-button van-button--default van-button--large van-button--round" style="color: white; background: #FAAF36; border-color: #FAAF36;">
                         <div class="van-button__content">
                           <!---->
                           <span class="van-button__text">
-                            <span class="font-semibold text-black">Start <span class="ml-2">45/45</span>
+                            <span class="font-semibold text-black">Start <span class="ml-2"><?php echo $this->db->get_where('tasks' , array('clt_id' =>$clt_id =$this->session->userdata('cltid'),'created' =>date('Y-m-d')))->row()->count_id ?? '0';?>/<?php echo  $this->Client_model->get_clientdetails('clt_tasks'); ?></span>
                             </span>
                           </span>
                           <!---->
@@ -199,6 +203,141 @@
     
 	</div>
   </body>
+  <?php include 'javascript.php';?>
+   <script src="<?php echo base_url();?>phd/tailwind/sweetalert2@11.js"></script>
   <script src="<?php echo base_url();?>phd/tailwind/tabs_tabs_tabs.js"></script>
   <script src="<?php echo base_url();?>phd/tailwind/flowbite_1.8.0_flowbite.min.js"></script>
+  <script type="text/javascript">
+
+
+
+function showAlert(commsval,prodval) {
+	//alert(commsval);
+	var mySplitResult =commsval.split(',')
+	//mySplitResult[0];
+	//alert(mySplitResult[0]);
+	
+	 $.ajax({
+			type:'POST',
+            url: '<?php echo base_url(); ?>Client/task_man',
+			data:{'commssion':mySplitResult[0],'prod_id':mySplitResult[1]},			
+            async: false,
+            success: function (response)
+            {
+				
+             
+			window.location.href="<?php echo base_url(); ?>Client/start"	
+            }
+        });
+
+    }
+</script>
+
+
+<div id="popup-modal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative w-full max-w-md max-h-full">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+           <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal">
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                </svg>
+                <span class="sr-only">Close modal</span>
+            </button>
+            <div class="p-6 text-center">
+			<h2 class="font-semibold text-base">Task Submission</h2>
+			<div class="flex items-center space-x-4 p-3">
+                        <img class="w-24 h-24 rounded-full shadow-lg" src="<?php echo base_url().$clientprod->pro_pic?? '' ?>"  alt="Elite Site Optimizer">
+                        <div class="flex flex-col space-y-1">
+                            <span class="font-bold">Applications <?php echo generateRandomNumber();?></span>
+                            <span class="text-sm">USDT <?php echo $clientprod->pro_price ?? '';?></span>
+							<span class="text-sm"><div role="radiogroup" class="van-rate van-rate--readonly" tabindex="0" aria-disabled="false" aria-readonly="true">
+                                  <div role="radio" class="van-rate__item" tabindex="0" aria-setsize="5" aria-posinset="1" aria-checked="true" style="padding-right: 2px;">
+                                    <i class="van-badge__wrapper van-icon van-icon-star van-rate__icon van-rate__icon--full" style="color: rgb(255, 210, 30); font-size: 18px;">
+                                    </i>
+                                    
+                                  </div>
+                                  <div role="radio" class="van-rate__item" tabindex="0" aria-setsize="5" aria-posinset="2" aria-checked="true" style="padding-right: 2px;">
+                                    <i class="van-badge__wrapper van-icon van-icon-star van-rate__icon van-rate__icon--full" style="color: rgb(255, 210, 30); font-size: 18px;">
+                                      
+                                    </i>
+                                    
+                                  </div>
+                                  <div role="radio" class="van-rate__item" tabindex="0" aria-setsize="5" aria-posinset="3" aria-checked="true" style="padding-right: 2px;">
+                                    <i class="van-badge__wrapper van-icon van-icon-star van-rate__icon van-rate__icon--full" style="color: rgb(255, 210, 30); font-size: 18px;">
+                                      
+                                    </i>
+                                    
+                                  </div>
+                                  <div role="radio" class="van-rate__item" tabindex="0" aria-setsize="5" aria-posinset="4" aria-checked="true" style="padding-right: 2px;">
+                                    <i class="van-badge__wrapper van-icon van-icon-star van-rate__icon van-rate__icon--full" style="color: rgb(255, 210, 30); font-size: 18px;">
+                                      
+                                    </i>
+                                    
+                                  </div>
+                                  <div role="radio" class="van-rate__item" tabindex="0" aria-setsize="5" aria-posinset="5" aria-checked="true">
+                                    <i class="van-badge__wrapper van-icon van-icon-star van-rate__icon van-rate__icon--full" style="color: rgb(255, 210, 30); font-size: 18px;">
+                                      
+                                    </i>
+                                    
+                                  </div>
+                                </div>
+                              </span>
+                        </div>
+                    </div>
+			
+               <div class="p-1 border-t border-b text-xs text-gray-700">
+          <div class="flex justify-center pb-3 text-black">
+      <div class="text-center mr-3 border-r pr-3">
+        <h2 class="font-semibold text-base">Total Amount</h2>
+        <p>USDT &nbsp; <?php echo $clientprod->pro_price ?? ''?></p>
+      </div>
+      <div class="text-center">
+        <h2 class="font-semibold text-base">Commission</h2>
+        <p>USDT &nbsp; <?php echo $clientprod->pro_comsion ?? '';?></p>
+      </div>
+  	</div>        
+        </div>
+				
+				<div class="p-1 border-t border-b text-xs text-gray-700">
+          <div class="flex items-center space-x-4">
+                    <div class="flex-shrink-0">
+                         Created At
+					</div>
+                    <div class="flex-1 min-w-0">
+                        
+                    </div>
+                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                        <?php echo $clientprod->pro_date ?? ''?>
+                    </div>
+                </div>        
+        </div>
+				
+                 <div class="p-1 border-t border-b text-xs text-gray-700">
+          <div class="flex items-center space-x-4">
+                    <div class="flex-shrink-0">
+                         Task Code
+					</div>
+                    <div class="flex-1 min-w-0">
+                        
+                    </div>
+                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                       	<?php echo h_generate_transct_id() ?? '';?>
+                    </div>
+                </div>        
+        </div>
+				<h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400"></h3>
+                <button type="button" onclick="showAlert('<?php echo $clientprod->pro_comsion;?>,<?php echo $clientprod->phd_id;?>')" class="van-button van-button--default van-button--large rounded-lg border" style="color: white; background: #FAAF36; border-color: #FAAF36;" >
+                          <div class="van-button__content">
+                            <!---->
+                            <span class="van-button__text">
+                              <span class="font-semibold text-white">submit</span>
+                            </span>
+                            <!---->
+                          </div>
+                        </button>
+              </div>
+        </div>
+    </div>
+</div>
+
 </html>

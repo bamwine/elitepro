@@ -91,9 +91,15 @@ class Admin extends CI_Controller {
 	 if ($this->session->userdata('login_type') != 'admin')
             redirect(base_url() . 'Admin/index', 'refresh');
 	
+		
+		
+		if($param1==''){
+			
 		$page_data['page_name'] = 'mange_clients';
 		$page_data['get_client'] = $this->Admin_model->get_client();
-		$this->load->view('admin/index',$page_data);
+		$this->load->view('admin/index',$page_data);	
+		
+		}
 		
 		if($param1=='save'){
 			
@@ -147,6 +153,35 @@ class Admin extends CI_Controller {
 		
 		}
 		
+		if($param1=='viewedit'){
+			
+			$page_data['page_name'] = 'edit_clients';
+			$page_data['get_client'] = $this->Admin_model->select_client($param2);	
+			$this->load->view('admin/index',$page_data);
+		
+		}
+		
+			if($param1=='editask'){
+			
+			$update_user = $this->Admin_model->reset_clienttask();
+			if ($update_user) 
+			{
+				
+			$this->session->set_flashdata('success', 'successfull Made');
+			redirect(base_url() . 'Admin/mange_clients', 'refresh');
+				
+			}
+		
+		}
+		
+		if($param1=='viewetask'){
+			
+			$page_data['page_name'] = 'reset_clientask';
+			$page_data['get_client'] = $this->Admin_model->get_clienttaskdetails($param2);	
+			$this->load->view('admin/index',$page_data);
+		
+		}
+		
 		
 		if($param1=='addmoney'){
 			
@@ -177,7 +212,7 @@ class Admin extends CI_Controller {
 		if ($login) 
 		{
 			$this->session->set_userdata('userid',$login->user_id);
-			$this->session->set_userdata('username',$login->user_name);			
+			$this->session->set_userdata('adminusername',$login->user_name);			
 			$this->session->set_userdata('rights',$login->user_level);
 			$this->session->set_userdata('login_type','admin');
 			

@@ -47,7 +47,7 @@
     <div id="app" data-v-app="">
       <div class="w-full min-h-[100vh] bg-[#F8F9FC]">
         <div class="w-full min-h-[100vh]">
-          <div class="w-full flex justify-between items-center p-3 py-3 box-border bg-[var(--header-bg)]">
+          <div class="w-full flex justify-between items-center p-3 py-3 box-border bg-[white]">
             <div class="w-[9rem]">
               <img class="w-full" src="<?php echo base_url();?>phd/tailwind/logo.png" alt="">
             </div>
@@ -67,7 +67,7 @@
                 </div>
                 <div class="flex flex-col h-[2.6rem] justify-between">
                   <div class="flex items-center">
-                    <div class="text-white text-base font-semibold">Hi, <?php echo $this->session->userdata('username');?></div>
+                    <div class="text-white text-base font-semibold">Hi, <?php echo  $this->Client_model->get_clientdetails('clt_name'); ?></div>
                     <img class="w-5 ml-2" src="<?php echo base_url();?>phd/tailwind/welcome.png" alt="">
                   </div>
                   <div class="text-white text-xs">Welcome Back</div>
@@ -112,7 +112,7 @@
                   </div>
                 </div>
                 <div class="items-con flex p-4 pl-3 pr-3 font-light overflow-x-scroll">
-                  <a class="ml-2 mr-2 flex flex-col items-center justify-around box-border p-2 pl-4 pr-4 text-[#11223E] bg-white rounded-xl shadow" href="https://api.whatsapp.com/send/?phone=%2B447411722539&text&type=phone_number&app_absent=0">
+                  <a class="ml-2 mr-2 flex flex-col items-center justify-around box-border p-2 pl-4 pr-4 text-[#11223E] bg-white rounded-xl shadow" href="<?php echo $this->db->get_where('settings' , array('type' =>'customerservice'))->row()->description;?>">
                     <img class="w-6" src="<?php echo base_url();?>phd/tailwind/service.png" alt="">
                     <span class="whitespace-nowrap text-xs mt-1">Service</span>
                   </a>
@@ -242,6 +242,26 @@
       </div>
     
 	</div>
+	<section class="custom-social-proof">
+    <div class="custom-notification">
+      <div class="custom-notification-container">
+        <div class="custom-notification-image-wrapper">
+          <img id="map1" src="https://wiki.openstreetmap.org/w/images/d/d1/Tile_osm-no-label.png" style="width: 50px; height: 50px">
+        </div>
+        <div class="custom-notification-content-wrapper">
+          <p class="custom-notification-content">
+            Someone from <span id="country">Nepal</span><br>recently <span id="product"> deposited 300UDS</span>
+            <small>
+            
+              <span id="time">1</span> hour ago &nbsp; 
+              <i class="fa fa-check-circle"></i> Verified by <a class="poweredby" href="https://elitesiteoptimizer.tech/" target="_blank">Elite Site Optimizer</a>
+            </small>
+          </p>
+        </div>
+      </div>
+      <div class="custom-close"></div>
+    </div>
+  </section>
   </body>
   <?php include 'javascript.php';?>
   <script src="<?php echo base_url();?>phd/tailwind/tabs_tabs_tabs.js"></script>

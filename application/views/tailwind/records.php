@@ -81,7 +81,7 @@
     <div id="app" data-v-app="">
       <div class="w-full min-h-[100vh] bg-[#F8F9FC]">
         <div class="w-full min-h-[100vh]">
-          <div class="w-full flex justify-between items-center p-3 py-3 box-border bg-[var(--header-bg)]">
+          <div class="w-full flex justify-between items-center p-3 py-3 box-border bg-[white]">
             <div class="w-[9rem]">
               <img class="w-full" src="<?php echo base_url();?>phd/tailwind/logo.png" alt="">
             </div>
@@ -103,152 +103,136 @@
       <div class="van-tab-line"></div>
       <div class="van-tab-content">
         <div class="tab-content" id="tabContent0">
-          <div>
+										<?php 
+foreach($clientrecords as $row){
+?>
+					<div>
                           <div class="w-full flex justify-between items-center mb-2">
-                            <div class="text-[#666] text-sm font-medium">2023-07-22 10:48:14</div>
-                            <div class="text-white text-xs rounded p-1 bg-[#FAAF36] font-medium">Completed</div>
-                            <!---->
-                            <!---->
-                            <!---->
+                            <div class="text-[#666] text-sm font-medium"><?php echo  $row['date_transct']; ?></div>
+                            <div class="text-white text-xs rounded p-1 bg-[#FAAF36] font-medium"><?php echo  $row['status']=="success" ? 'Completed' : 'Pending'; ?></div>
+                            
                           </div>
                           <div class="w-full flex flex-col mb-6 shadow bg-white overflow-hidden rounded-xl p-3 box-border">
                             <div class="flex">
                               <div class="mr-4" style="width: 6rem;">
                                 <div class="van-image" style="width: 6rem; height: 6rem; overflow: hidden; border-radius: 0.4rem;">
-                                  <img class="van-image__img" style="object-fit: cover;" data-src="https://bigw-in.oss-ap-northeast-1.aliyuncs.com/bigw/img/6c7537f2370c4579bcc709eb07ecd49f.png" src="https://bigw-in.oss-ap-northeast-1.aliyuncs.com/bigw/img/6c7537f2370c4579bcc709eb07ecd49f.png" lazy="loaded">
-                                  <!---->
-                                  <!---->
+                                  <img class="van-image__img" style="object-fit: cover;"  src="<?php echo base_url().$this->Client_model->get_prodctdetails($row['pro_id'],'pro_pic');?>" >
+                                  
                                 </div>
                               </div>
                               <div class="flex flex-col h-[6rem] justify-between">
                                 <div class="flex flex-col">
-                                  <div class="text-[#666] text-base font-semibold whitespace-nowrap w-[52vw] overflow-hidden text-ellipsis">Applications 439</div>
-                                  <div class="text-[#666] text-sm mt-2">USDT 881.67</div>
+                                  <div class="text-[#666] text-base font-semibold whitespace-nowrap w-[52vw] overflow-hidden text-ellipsis"><?php echo $this->Client_model->get_prodctdetails($row['pro_id'],'pro_name');?></div>
+                                  <div class="text-[#666] text-sm mt-2">USDT <?php echo $this->Client_model->get_prodctdetails($row['pro_id'],'pro_price');?></div>
                                 </div>
                                 <div role="radiogroup" class="van-rate van-rate--readonly" tabindex="0" aria-disabled="false" aria-readonly="true">
                                   <div role="radio" class="van-rate__item" tabindex="0" aria-setsize="5" aria-posinset="1" aria-checked="true" style="padding-right: 2px;">
                                     <i class="van-badge__wrapper van-icon van-icon-star van-rate__icon van-rate__icon--full" style="color: rgb(255, 210, 30); font-size: 18px;">
-                                      <!---->
-                                      <!---->
-                                      <!---->
                                     </i>
-                                    <!---->
+                                    
                                   </div>
                                   <div role="radio" class="van-rate__item" tabindex="0" aria-setsize="5" aria-posinset="2" aria-checked="true" style="padding-right: 2px;">
                                     <i class="van-badge__wrapper van-icon van-icon-star van-rate__icon van-rate__icon--full" style="color: rgb(255, 210, 30); font-size: 18px;">
-                                      <!---->
-                                      <!---->
-                                      <!---->
+                                      
                                     </i>
-                                    <!---->
+                                    
                                   </div>
                                   <div role="radio" class="van-rate__item" tabindex="0" aria-setsize="5" aria-posinset="3" aria-checked="true" style="padding-right: 2px;">
                                     <i class="van-badge__wrapper van-icon van-icon-star van-rate__icon van-rate__icon--full" style="color: rgb(255, 210, 30); font-size: 18px;">
-                                      <!---->
-                                      <!---->
-                                      <!---->
+                                      
                                     </i>
-                                    <!---->
+                                    
                                   </div>
                                   <div role="radio" class="van-rate__item" tabindex="0" aria-setsize="5" aria-posinset="4" aria-checked="true" style="padding-right: 2px;">
                                     <i class="van-badge__wrapper van-icon van-icon-star van-rate__icon van-rate__icon--full" style="color: rgb(255, 210, 30); font-size: 18px;">
-                                      <!---->
-                                      <!---->
-                                      <!---->
+                                      
                                     </i>
-                                    <!---->
+                                    
                                   </div>
                                   <div role="radio" class="van-rate__item" tabindex="0" aria-setsize="5" aria-posinset="5" aria-checked="true">
                                     <i class="van-badge__wrapper van-icon van-icon-star van-rate__icon van-rate__icon--full" style="color: rgb(255, 210, 30); font-size: 18px;">
-                                      <!---->
-                                      <!---->
-                                      <!---->
+                                      
                                     </i>
-                                    <!---->
+                                    
                                   </div>
                                 </div>
-                              </div>
+                              
+							  </div>
                             </div>
                             <div class="mt-5 grid grid-cols-5 gap-2">
                               <div class="col-span-2 flex flex-col">
                                 <div class="text-xs text-[#666] font-medium">Total Amount</div>
-                                <div class="mt-2 text-sm text-[#FAAF36] font-semibold">USDT 881.67</div>
+                                <div class="mt-2 text-sm text-[#FAAF36] font-semibold">USDT <?php echo $this->Client_model->get_prodctdetails($row['pro_id'],'pro_price');?></div>
                               </div>
                               <div class="col-span-2 flex flex-col">
                                 <div class="text-xs text-[#666] font-medium">Commission</div>
-                                <div class="mt-2 text-sm text-[#FAAF36] font-semibold">USDT 5.29</div>
+                                <div class="mt-2 text-sm text-[#FAAF36] font-semibold">USDT <?php echo $this->Client_model->get_prodctdetails($row['pro_id'],'pro_comsion');?></div>
                               </div>
                               <div class="col-span-1 flex justify-end items-center">
-                                <!---->
+                                
                               </div>
                             </div>
                           </div>
                         </div>
-                      
+          <?php 
+}
+?>  
         </div>
         <div class="tab-content" id="tabContent1">
-           <div>
+           <div class="van-list__finished-text">No more data...</div>         
+        </div>
+        <div class="tab-content" id="tabContent2">
+          					<?php 
+foreach($clientrecords as $row){
+?>
+					<div>
                           <div class="w-full flex justify-between items-center mb-2">
-                            <div class="text-[#666] text-sm font-medium">2023-07-22 10:48:10</div>
-                            <div class="text-white text-xs rounded p-1 bg-[#FAAF36] font-medium">Completed</div>
-                            <!---->
-                            <!---->
-                            <!---->
+                            <div class="text-[#666] text-sm font-medium"><?php echo  $row['date_transct']; ?></div>
+                            <div class="text-white text-xs rounded p-1 bg-[#FAAF36] font-medium"><?php echo  $row['status']=="success" ? 'Completed' : 'Pending'; ?></div>
+                            
                           </div>
                           <div class="w-full flex flex-col mb-6 shadow bg-white overflow-hidden rounded-xl p-3 box-border">
                             <div class="flex">
                               <div class="mr-4" style="width: 6rem;">
                                 <div class="van-image" style="width: 6rem; height: 6rem; overflow: hidden; border-radius: 0.4rem;">
-                                  <img class="van-image__img" style="object-fit: cover;" data-src="https://bigw-in.oss-ap-northeast-1.aliyuncs.com/bigw/img/a9eef3e9518548b68f6210a2551dbd38.jpg" src="https://bigw-in.oss-ap-northeast-1.aliyuncs.com/bigw/img/a9eef3e9518548b68f6210a2551dbd38.jpg" lazy="loaded">
-                                  <!---->
-                                  <!---->
+                                  <img class="van-image__img" style="object-fit: cover;"  src="<?php echo base_url().$this->Client_model->get_prodctdetails($row['pro_id'],'pro_pic');?>" >
+                                  
                                 </div>
                               </div>
                               <div class="flex flex-col h-[6rem] justify-between">
                                 <div class="flex flex-col">
-                                  <div class="text-[#666] text-base font-semibold whitespace-nowrap w-[52vw] overflow-hidden text-ellipsis">Applications 16</div>
-                                  <div class="text-[#666] text-sm mt-2">USDT 1184</div>
+                                  <div class="text-[#666] text-base font-semibold whitespace-nowrap w-[52vw] overflow-hidden text-ellipsis"><?php echo $this->Client_model->get_prodctdetails($row['pro_id'],'pro_name');?></div>
+                                  <div class="text-[#666] text-sm mt-2">USDT <?php echo $this->Client_model->get_prodctdetails($row['pro_id'],'pro_price');?></div>
                                 </div>
                                 <div role="radiogroup" class="van-rate van-rate--readonly" tabindex="0" aria-disabled="false" aria-readonly="true">
                                   <div role="radio" class="van-rate__item" tabindex="0" aria-setsize="5" aria-posinset="1" aria-checked="true" style="padding-right: 2px;">
                                     <i class="van-badge__wrapper van-icon van-icon-star van-rate__icon van-rate__icon--full" style="color: rgb(255, 210, 30); font-size: 18px;">
-                                      <!---->
-                                      <!---->
-                                      <!---->
                                     </i>
-                                    <!---->
+                                    
                                   </div>
                                   <div role="radio" class="van-rate__item" tabindex="0" aria-setsize="5" aria-posinset="2" aria-checked="true" style="padding-right: 2px;">
                                     <i class="van-badge__wrapper van-icon van-icon-star van-rate__icon van-rate__icon--full" style="color: rgb(255, 210, 30); font-size: 18px;">
-                                      <!---->
-                                      <!---->
-                                      <!---->
+                                      
                                     </i>
-                                    <!---->
+                                    
                                   </div>
                                   <div role="radio" class="van-rate__item" tabindex="0" aria-setsize="5" aria-posinset="3" aria-checked="true" style="padding-right: 2px;">
                                     <i class="van-badge__wrapper van-icon van-icon-star van-rate__icon van-rate__icon--full" style="color: rgb(255, 210, 30); font-size: 18px;">
-                                      <!---->
-                                      <!---->
-                                      <!---->
+                                      
                                     </i>
-                                    <!---->
+                                    
                                   </div>
                                   <div role="radio" class="van-rate__item" tabindex="0" aria-setsize="5" aria-posinset="4" aria-checked="true" style="padding-right: 2px;">
                                     <i class="van-badge__wrapper van-icon van-icon-star van-rate__icon van-rate__icon--full" style="color: rgb(255, 210, 30); font-size: 18px;">
-                                      <!---->
-                                      <!---->
-                                      <!---->
+                                      
                                     </i>
-                                    <!---->
+                                    
                                   </div>
                                   <div role="radio" class="van-rate__item" tabindex="0" aria-setsize="5" aria-posinset="5" aria-checked="true">
                                     <i class="van-badge__wrapper van-icon van-icon-star van-rate__icon van-rate__icon--full" style="color: rgb(255, 210, 30); font-size: 18px;">
-                                      <!---->
-                                      <!---->
-                                      <!---->
+                                      
                                     </i>
-                                    <!---->
+                                    
                                   </div>
                                 </div>
                               </div>
@@ -256,27 +240,24 @@
                             <div class="mt-5 grid grid-cols-5 gap-2">
                               <div class="col-span-2 flex flex-col">
                                 <div class="text-xs text-[#666] font-medium">Total Amount</div>
-                                <div class="mt-2 text-sm text-[#FAAF36] font-semibold">USDT 1184</div>
+                                <div class="mt-2 text-sm text-[#FAAF36] font-semibold">USDT <?php echo $this->Client_model->get_prodctdetails($row['pro_id'],'pro_price');?></div>
                               </div>
                               <div class="col-span-2 flex flex-col">
                                 <div class="text-xs text-[#666] font-medium">Commission</div>
-                                <div class="mt-2 text-sm text-[#FAAF36] font-semibold">USDT 7.1</div>
+                                <div class="mt-2 text-sm text-[#FAAF36] font-semibold">USDT <?php echo $this->Client_model->get_prodctdetails($row['pro_id'],'pro_comsion');?></div>
                               </div>
                               <div class="col-span-1 flex justify-end items-center">
-                                <!---->
+                                
                               </div>
                             </div>
                           </div>
                         </div>
-                    
-        </div>
-        <div class="tab-content" id="tabContent2">
-          <h2>Completed Content</h2>
-          <p>This is the content of Completed tab.</p>
+          <?php 
+}
+?>
         </div>
         <div class="tab-content" id="tabContent3">
-          <h2>Undone Content</h2>
-          <p>This is the content of Undone tab.</p>
+           <div class="van-list__finished-text">No more data...</div>
         </div>
       </div>
     </div>

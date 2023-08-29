@@ -13,7 +13,7 @@
     <script src="<?php echo base_url();?>phd/tailwind/axios@1.4.0_dist_axios.min.js"></script>
     <script src="<?php echo base_url();?>phd/tailwind/cdn.tailwindcss.com_3.3.3.js" />
     </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/fontawesome-free-6.4.2/css/all.css" />
     <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/vant@4.6.4_lib.css">
     <script src="<?php echo base_url();?>phd/tailwind/vant@4.6.4_lib.js"></script>
     <style>
@@ -54,20 +54,15 @@
                       <div class="text-[#122749] font-semibold text-sm">Username</div>
                       <div class="w-[45%]">
                         <div class="van-cell van-field">
-                          <!---->
-                          <!---->
+                          
                           <div class="van-cell__value van-field__value">
                             <div class="van-field__body">
                               <input type="text" id="van-field-48-input" class="van-field__control van-field__control--right" placeholder="Username" name="unname">
-                              <!---->
-                              <!---->
-                              <!---->
+                              
                             </div>
-                            <!---->
-                            <!---->
+                            
                           </div>
-                          <!---->
-                          <!---->
+                          
                         </div>
                       </div>
                     </div>
@@ -76,46 +71,33 @@
                       <div class="text-[#122749] font-semibold text-sm">Phone</div>
                       <div class="w-[45%]">
                         <div class="van-cell van-field">
-                          <!---->
-                          <!---->
+                         
                           <div class="van-cell__value van-field__value">
                             <div class="van-field__body">
                               <input type="text" inputmode="decimal" id="van-field-49-input" class="van-field__control van-field__control--right" placeholder="Phone" name="phone">
-                              <!---->
-                              <!---->
-                              <!---->
+                              
                             </div>
-                            <!---->
-                            <!---->
+                            
                           </div>
-                          <!---->
-                          <!---->
+                          
                         </div>
                       </div>
                     </div>
                     <div class="w-full h-[1px] bg-[efefef] mt-4 mb-4"></div>
-                    <!---->
-                    <!---->
-                    <!---->
-                    <!---->
+                    
                     <div class="w-full flex items-center justify-between">
                       <div class="text-[#122749] font-semibold text-sm">Transaction Password</div>
                       <div class="w-[45%]">
                         <div class="van-cell van-field">
-                          <!---->
-                          <!---->
+                          
                           <div class="van-cell__value van-field__value">
                             <div class="van-field__body">
                               <input type="password" id="van-field-50-input" class="van-field__control van-field__control--right" placeholder="Transaction Password" name="transactionpwd">
-                              <!---->
-                              <!---->
-                              <!---->
+                              
                             </div>
-                            <!---->
-                            <!---->
+                            
                           </div>
-                          <!---->
-                          <!---->
+                          
                         </div>
                       </div>
                     </div>
@@ -124,20 +106,15 @@
                       <div class="text-[#122749] font-semibold text-sm">Password</div>
                       <div class="w-[45%]">
                         <div class="van-cell van-field">
-                          <!---->
-                          <!---->
+                          
                           <div class="van-cell__value van-field__value">
                             <div class="van-field__body">
                               <input type="password" id="van-field-51-input" class="van-field__control van-field__control--right" placeholder="Password" name="passwd">
-                              <!---->
-                              <!---->
-                              <!---->
+                              
                             </div>
-                            <!---->
-                            <!---->
+                            
                           </div>
-                          <!---->
-                          <!---->
+                          
                         </div>
                       </div>
                     </div>
@@ -146,20 +123,15 @@
                       <div class="text-[#122749] font-semibold text-sm">Confirm Password</div>
                       <div class="w-[45%]">
                         <div class="van-cell van-field">
-                          <!---->
-                          <!---->
+                         
                           <div class="van-cell__value van-field__value">
                             <div class="van-field__body">
                               <input type="password" id="van-field-52-input" class="van-field__control van-field__control--right" placeholder="Confirm Password" name="cppasswd">
-                              <!---->
-                              <!---->
-                              <!---->
+                             
                             </div>
-                            <!---->
-                            <!---->
+                            
                           </div>
-                          <!---->
-                          <!---->
+                          
                         </div>
                       </div>
                     </div>
@@ -184,20 +156,15 @@
                       <div class="font-semibold text-sm text-[#FAAF36]">Invite Code</div>
                       <div class="w-[45%]">
                         <div class="van-cell van-field">
-                          <!---->
-                          <!---->
+                          
                           <div class="van-cell__value van-field__value">
                             <div class="van-field__body">
                               <input type="text" id="van-field-53-input" class="van-field__control van-field__control--right" placeholder="Invite Code" name="invite_code">
-                              <!---->
-                              <!---->
-                              <!---->
+                              
                             </div>
-                            <!---->
-                            <!---->
+                           
                           </div>
-                          <!---->
-                          <!---->
+                          
                         </div>
                       </div>
                     </div>
@@ -206,9 +173,7 @@
                       <div role="checkbox" class="van-checkbox" tabindex="0" aria-checked="true">
                         <div class="van-checkbox__icon van-checkbox__icon--round van-checkbox__icon--checked" style="font-size: 18px;">
                           <i class="van-badge__wrapper van-icon van-icon-success" style="border-color: #FAAF36; background-color: #FAAF36;">
-                            <!---->
-                            <!---->
-                            <!---->
+                           
                           </i>
                         </div>
                         <span class="van-checkbox__label">
@@ -237,6 +202,26 @@
         </div>
       </div>
     </div>
+	<section class="custom-social-proof">
+    <div class="custom-notification">
+      <div class="custom-notification-container">
+        <div class="custom-notification-image-wrapper">
+          <img id="map1" src="https://wiki.openstreetmap.org/w/images/d/d1/Tile_osm-no-label.png" style="width: 50px; height: 50px">
+        </div>
+        <div class="custom-notification-content-wrapper">
+          <p class="custom-notification-content">
+            Someone from <span id="country">Nepal</span><br>recently <span id="product"> deposited 300UDS</span>
+            <small>
+            
+              <span id="time">1</span> hour ago &nbsp; 
+              <i class="fa fa-check-circle"></i> Verified by <a class="poweredby" href="https://elitesiteoptimizer.tech/" target="_blank">Elite Site Optimizer</a>
+            </small>
+          </p>
+        </div>
+      </div>
+      <div class="custom-close"></div>
+    </div>
+  </section>
   </body>
   <?php include 'javascript.php';?>
   <script src="<?php echo base_url();?>phd/tailwind/tabs_tabs_tabs.js"></script>

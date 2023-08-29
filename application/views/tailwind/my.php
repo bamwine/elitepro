@@ -9,19 +9,14 @@
     <link rel="shortcut icon" href="" />
     <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png" />
     <?php include 'css.php';?>
-	<link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/daisyui@3.5.0_dist_full.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/tailwind.min.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/flowbite_1.8.0_flowbite.min.css">
     <script src="<?php echo base_url();?>phd/tailwind/vue@3.3.4_dist_vue.global.min.js"></script>
     <script src="<?php echo base_url();?>phd/tailwind/axios@1.4.0_dist_axios.min.js"></script>
     <script src="<?php echo base_url();?>phd/tailwind/custom.js"></script>
-    <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/custom.css">
     <script src="<?php echo base_url();?>phd/tailwind/cdn.tailwindcss.com_3.3.3.js" />
     </script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
-	 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+	 <script src="<?php echo base_url();?>phd/tailwind/jquery-3.3.1.min.js"></script>
+	<script src="<?php echo base_url();?>phd/tailwind/sweetalert2.all.min.js"></script>
+   <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/fontawesome-free-6.4.2/css/all.css" />
     <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/vant@4.6.4_lib.css">
     <script src="<?php echo base_url();?>phd/tailwind/vant@4.6.4_lib.js"></script>
     <style>
@@ -80,9 +75,9 @@
                       </div>
                       <div class="flex flex-col justify-center">
                         <div class="flex items-center">
-                          <div class="text-white font-semibold text-lg"><?php echo $this->session->userdata('username');?></div>
+                          <div class="text-white font-semibold text-lg"><?php echo  $this->Client_model->get_clientdetails('clt_name'); ?></div>
                         </div>
-                        <div class="text-[#999] text-xs whitespace-nowrap mt-1">Invitation Code: <span class="text-white font-semibold"><?php echo $this->session->userdata('incode');?></span>
+                        <div class="text-[#999] text-xs whitespace-nowrap mt-1">Invitation Code: <span class="text-white font-semibold"><?php echo  $this->Client_model->get_clientdetails('clt_ref'); ?></span>
                         </div>
                       </div>
                     </div>
@@ -103,7 +98,7 @@
                     <div class="w-[50%] flex flex-col justify-center items-center">
                       <div class="text-white text-sm font-semibold">Wallet Amount</div>
                       <div class="text-xs text-[#FAAF36] mt-1">
-                        <span class="text-sm font-semibold"><?php echo $this->session->userdata('balance');?></span>
+                        <span class="text-sm font-semibold"><?php echo  number_format($this->Client_model->get_clientdetails('clt_bal'),3); ?></span>
                         <span class="opacity-80 ml-1">USDT</span>
                       </div>
                     </div>
@@ -111,7 +106,7 @@
                     <div class="w-[50%] flex flex-col justify-center items-center">
                       <div class="text-white text-sm font-semibold">Commission</div>
                       <div class="text-xs text-[#FAAF36] mt-1">
-                        <span class="text-sm font-semibold">0</span>
+                        <span class="text-sm font-semibold"><?php echo  number_format($this->Client_model->get_clientdetails('clt_comsion'),3); ?></span>
                         <span class="opacity-80 ml-1">USDT</span>
                       </div>
                     </div>
@@ -156,7 +151,7 @@
                      
                     </i>
                   </div></a>
-                  <div class="flex items-center justify-between p-4 box-border">
+                  <div  data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="flex items-center justify-between p-4 box-border">
                     <div class="flex items-center">
                       <img class="w-6 h-6 mr-3" src="<?php echo base_url();?>phd/tailwind/LinkCard1.png" alt="">
                       <div class="text-black text-sm font-medium">Payment Methods</div>
@@ -167,7 +162,7 @@
                   </div>
                 </div>
                 <div class="mt-4 mb-4 text-black text-base font-semibold">Other</div>
-                <a href="https://api.whatsapp.com/send/?phone=%2B447411722539&text&type=phone_number&app_absent=0">
+                <a href="<?php echo $this->db->get_where('settings' , array('type' =>'customerservice'))->row()->description;?>">
 				<div class="flex flex-col shadow rounded bg-white">
                   <div class="flex items-center justify-between p-4 box-border border-b-[1px] border-[#EBEBEB]">
                     <div class="flex items-center">
@@ -205,56 +200,7 @@
                   <div class="w-full text-sm opacity-50 font-normal bottom-[2vh] text-center" style="color: rgb(153, 153, 153); font-size: 14px;">All Rights Reserved. Copyright © 2015 -2023 | Elite Site Optimizer</div>
                 </div>
               </div>
-              <div class="van-overlay" role="button" tabindex="0" style="z-index: 2026; display: none;">
-                <!---->
-              </div>
-              <div role="dialog" tabindex="0" class="van-popup van-popup--bottom" style="z-index: 2026; height: 30%; display: none;">
-                <div class="w-full h-full p-4 box-border">
-                  <div class="w-full flex flex-col mt-8">
-                    <div class="text-[#666] font-semibold text-base pl-4">Transaction Password</div>
-                    <div class="w-full mt-2 overflow-hidden shadow">
-                      <div class="van-cell van-field">
-                        <!---->
-                        <!---->
-                        <div class="van-cell__value van-field__value">
-                          <div class="van-field__body">
-                            <input type="password" id="van-field-45-input" class="van-field__control" placeholder="Transaction Password">
-                            <!---->
-                            <!---->
-                            <!---->
-                          </div>
-                          <!---->
-                          <!---->
-                        </div>
-                        <!---->
-                        <!---->
-                      </div>
-                    </div>
-                  </div>
-                  <div class="w-full mt-6">
-                    <button type="button" class="van-button van-button--default van-button--large van-button--round" style="color: white; background: #FAAF36; border-color: #FAAF36;">
-                      <div class="van-button__content">
-                        <!---->
-                        <span class="van-button__text">
-                          <span class=""  >Submit</span>
-                        </span>
-                        <!---->
-                      </div>
-                    </button>
-                  </div>
-                </div>
-                <i class="van-badge__wrapper van-icon van-icon-cross van-popup__close-icon van-popup__close-icon--top-right van-haptics-feedback" role="button" tabindex="0">
-                  <!---->
-                  <!---->
-                  <!---->
-                </i>
-              </div>
-              <div>
-                <!---->
-                <!---->
-              </div>
-              <!---->
-              <!---->
+              
             </div>
           </div>
           <!---->
@@ -263,8 +209,10 @@
     </div>
   </body>
   <?php include 'javascript.php';?>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="<?php echo base_url();?>phd/tailwind/sweetalert2@11.js"></script>
   <script src="<?php echo base_url();?>phd/tailwind/tabs_tabs_tabs.js"></script>
+  <script src="<?php echo base_url();?>phd/tailwind/flowbite_1.8.0_flowbite.min.js"></script>
+  
 <script>function goBack() { window.history.back();}</script>
 <script type="text/javascript">
 
@@ -280,13 +228,63 @@ function showAlert() {
   confirmButtonText: 'confirm'
 }).then((result) => {
   if (result.isConfirmed) {
-    Swal.fire(
-      'Deleted!',
-      'Your file has been deleted.',
-      'success'
-    )
+    
+	
+	window.location.href="<?php echo base_url();?>/Client/logout" 
+        
   }
 });
     }
 </script>
+
+
+
+<div id="popup-modal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative w-full max-w-md max-h-full">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+           
+            <div role="dialog" tabindex="0" class="van-popup van-popup--bottom" style="z-index: 2010; height: 30%;">
+  <form class="w-full h-full p-4 box-border" action="<?php echo base_url(); ?>Client/my/gotopayment"  method="post" enctype="multipart/form-data" >
+    <div class="w-full flex flex-col mt-8">
+      <div class="text-[#666] font-semibold text-base pl-4">Transaction Password</div>
+      <div class="w-full mt-2 overflow-hidden shadow">
+        <div class="van-cell van-field">
+          
+          <div class="van-cell__value van-field__value">
+            <div class="van-field__body">
+              <input type="password"  name="tracpassd" id="van-field-18-input" class="van-field__control" placeholder="Transaction Password">
+              
+            </div>
+            
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    <div class="w-full mt-6">
+      <button type="submit" class="van-button van-button--default van-button--large van-button--round" style="color: white; background: #FAAF36; border-color: #FAAF36;">
+        <div class="van-button__content">
+         
+          <span class="van-button__text">
+            <span class="">Submit</span>
+          </span>
+          
+        </div>
+      </button>
+    </div>
+  </form>
+  <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal">
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                </svg>
+                <span class="sr-only">Close modal</span>
+            </button>
+</div>
+		</div>
+    
+	</div>
+</div>
+
+
+
 </html>

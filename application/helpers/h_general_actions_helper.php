@@ -73,8 +73,19 @@ if ( ! function_exists('h_generate_transct_id'))
 {
 //function to h_generate_project_id
 	function h_generate_transct_id()
-	{  $num =rand(100000000, 1000000000);
-    	return date('Yhis').$num;
+	{      $digits = '0123456789';
+    $randomDigits = '';
+	$length=27;
+
+    for ($i = 0; $i < $length - 14; $i++) { // Subtracting 14 characters for formatted timestamp
+        $randomDigits .= $digits[rand(0, strlen($digits) - 1)];
+    }
+
+    $timestamp = date('YmdHis'); // Current timestamp in format: YearMonthDayHourMinuteSecond
+
+    $randomString = $timestamp.$randomDigits;
+
+    return $randomString;
 	}
 }
 //----------------------------------------------------
@@ -87,6 +98,17 @@ if ( ! function_exists('h_generate_datetime'))
 	function h_generate_datetime()
 	{
     	return date('Y-m-d h:i:s');
+	}
+}
+
+
+if ( ! function_exists('generateRandomNumber'))
+{
+//function to h_generate_hrd_id
+	function generateRandomNumber()
+	{
+    	$randomNumber = rand(100, 999);
+    return $randomNumber;
 	}
 }
 

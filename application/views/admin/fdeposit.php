@@ -26,7 +26,7 @@
                       <tbody>
 					  <?php $count = 1;foreach($clientdepo as $row){?>
                         <tr>
-                            <td><?php echo $this->Admin_model->get_clientdetails($row['tr_clt_id'],"clt_email");?></td> 
+                            <td><?php echo $this->Admin_model->get_clientdetails($row['tr_clt_id'],"clt_name");?></td> 
 							<td><?php echo $row['tr_com_address'];?></td>
                             <td><?php echo $row['tr_amount'];?></td>
                             <td><?php echo $row['tr_update'];?></td>

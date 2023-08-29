@@ -15,8 +15,8 @@
     <script src="<?php echo base_url();?>phd/tailwind/axios@1.4.0_dist_axios.min.js"></script>
     <script src="<?php echo base_url();?>phd/tailwind/custom.js"></script>
     <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/custom.css">
-    <script src="<?php echo base_url();?>phd/tailwind/cdn.tailwindcss.com_3.3.3.js" />
-    </script>
+    <script src="<?php echo base_url();?>phd/tailwind/cdn.tailwindcss.com_3.3.3.js" /></script>
+	<link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/fontawesome-free-6.4.2/css/all.css" />
     <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/vant@4.6.4_lib.css">
     <script src="<?php echo base_url();?>phd/tailwind/vant@4.6.4_lib.js"></script>
      <style>

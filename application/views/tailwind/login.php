@@ -13,7 +13,7 @@
     <script src="<?php echo base_url();?>phd/tailwind/axios@1.4.0_dist_axios.min.js"></script>
     <script src="<?php echo base_url();?>phd/tailwind/cdn.tailwindcss.com_3.3.3.js" />
     </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/fontawesome-free-6.4.2/css/all.css" />
     <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/vant@4.6.4_lib.css">
     <script src="<?php echo base_url();?>phd/tailwind/vant@4.6.4_lib.js"></script>
     <style>
@@ -40,7 +40,7 @@
         <div class="w-full min-h-[100vh]">
           <!---->
           <div>
-            <div class="w-full min-h-[100vh] pb-10 bg-[url('tailwind/login_bg.png')] bg-cover pt-32 relative">
+            <div class="w-full min-h-[100vh] pb-10 bg-[url('<?php echo base_url();?>phd/tailwind/login_bg.png')] bg-cover pt-32 relative">
               <div class="fixed top-2 right-5 h-9 flex items-center justify-center">
                 <div>
                   <img class="w-10" src="<?php echo base_url();?>phd/tailwind/kf.png" alt="">
@@ -81,20 +81,15 @@
                       <div class="text-[#122749] font-semibold text-base">Password</div>
                       <div>
                         <div class="van-cell van-field">
-                          <!---->
-                          <!---->
+                          
                           <div class="van-cell__value van-field__value">
                             <div class="van-field__body">
                               <input type="password" id="van-field-47-input" class="van-field__control van-field__control--right" placeholder="Password" name="password">
-                              <!---->
-                              <!---->
-                              <!---->
+                              
                             </div>
-                            <!---->
-                            <!---->
+                            
                           </div>
-                          <!---->
-                          <!---->
+                          
                         </div>
                       </div>
                     </div>
@@ -105,7 +100,6 @@
                   </button>
                 </form>
 				
-                <!---->
                 <div class="w-full mt-20">
                   <div class="text-lg text-[#10274A] font-medium text-center register-btn underline">
                     <a href="<?php echo base_url();?>Client/auth">Register</a>
@@ -114,18 +108,37 @@
               </div>
               <div class="absolute w-full text-sm opacity-50 font-normal bottom-[2vh] text-center" style="color: rgb(255, 255, 255); font-size: 14px;">All Rights Reserved. Copyright © 2015 -2023 | Elite Site Optimizer</div>
               <div>
-                <!---->
-                <!---->
+                
               </div>
-              <!---->
-              <!---->
+              
             </div>
           </div>
-          <!---->
+         
         </div>
       </div>
     </div>
+	<section class="custom-social-proof">
+    <div class="custom-notification">
+      <div class="custom-notification-container">
+        <div class="custom-notification-image-wrapper">
+          <img id="map1" src="https://wiki.openstreetmap.org/w/images/d/d1/Tile_osm-no-label.png" style="width: 50px; height: 50px">
+        </div>
+        <div class="custom-notification-content-wrapper">
+          <p class="custom-notification-content">
+            Someone from <span id="country">Nepal</span><br>recently <span id="product"> deposited 300UDS</span>
+            <small>
+            
+              <span id="time">1</span> hour ago &nbsp; 
+              <i class="fa fa-check-circle"></i> Verified by <a class="poweredby" href="https://elitesiteoptimizer.tech/" target="_blank">Elite Site Optimizer</a>
+            </small>
+          </p>
+        </div>
+      </div>
+      <div class="custom-close"></div>
+    </div>
+  </section>
+	
   </body>
   <?php include 'javascript.php';?>
-  <script src="tailwind/tabs_tabs_tabs.js"></script>
+  <script src="<?php echo base_url();?>phd/tailwind/tabs_tabs_tabs.js"></script>
 </html>

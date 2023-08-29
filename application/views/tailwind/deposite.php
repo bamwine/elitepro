@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/custom.css">
     <script src="<?php echo base_url();?>phd/tailwind/cdn.tailwindcss.com_3.3.3.js" />
     </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/fontawesome-free-6.4.2/css/all.css" />
     <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/vant@4.6.4_lib.css">
     <script src="<?php echo base_url();?>phd/tailwind/vant@4.6.4_lib.js"></script>
     
@@ -120,12 +120,12 @@
                       <div class="flex flex-col justify-between p-4 box-border rounded-xl bg-[url('<?php echo base_url();?>phd/tailwind/bg3.png')] bg-cover shadow">
                         <div class="text-white opacity-70 text-sm font-semibold">Account Amount</div>
                         <div class="flex mt-4">
-                          <div class="text-white text-3xl font-bold flex items-center"><?php echo $this->session->userdata('balance');?></div>
+                          <div class="text-white text-3xl font-bold flex items-center"><?php echo  $this->Client_model->get_clientdetails('clt_bal'); ?></div>
                           <div class="text-white text-sm font-bold flex items-center ml-2 pt-[12px]">USDT</div>
                         </div>
                       </div>
                       <div class="w-full mt-6">
-                        <a type="button" class="van-button van-button--default van-button--large" style="color: white; background: #FAAF36; border-color: #FAAF36;" href="https://api.whatsapp.com/send/?phone=%2B447411722539&text&type=phone_number&app_absent=0">
+                        <a type="button" class="van-button van-button--default van-button--large" style="color: white; background: #FAAF36; border-color: #FAAF36;" href="<?php echo $this->db->get_where('settings' , array('type' =>'customerservice'))->row()->description;?>">
                           <div class="van-button__content">
                             <!---->
                             <span class="van-button__text">
@@ -165,17 +165,7 @@
 							  <?php 
 							}
 							?>
-                              <div>
-                                <div class="w-full mb-4 bg-white rounded-xl shadow flex flex-col p-3">
-                                  <div class="flex justify-between">
-                                    <div class="text-sm font-semibold text-[#999]">202307224634046201530982400</div>
-                                  </div>
-                                  <div class="flex text-base text-[#FAAF36] font-semibold items-center mt-3">USDT 1060</div>
-                                  <div class="flex justify-between mt-3">
-                                    <div class="text-sm font-normal text-[#999]">2023-07-22 10:22:20</div>
-                                  </div>
-                                </div>
-                              </div>
+                              
                               <!---->
                               <div class="van-list__finished-text">No more data...</div>
                               <!---->

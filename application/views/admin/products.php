@@ -24,7 +24,8 @@
                                 <th>Image</th>
                                 <th>Product Name</th>                                
                                 <th>Base Price</th>                                
-                                <th>Date Created</th>
+                                <th>Commission</th>
+								<th>Date Created</th>
                                 <th>Actions</th>
                             </tr>
                           </thead>
@@ -38,7 +39,8 @@
                             <tr>
                                 <td><img src="<?php echo base_url().$row['pro_pic']?>" alt="logo"/></td>
                                 <td><?php echo $row['pro_name'];?></td>                                
-                                <td>$<?php echo $row['pro_price'];?></td>
+                                <td>USDT<?php echo $row['pro_price'];?></td>
+								<td>USDT<?php echo $row['pro_comsion'];?></td>
                                 <td><?php echo $row['pro_date'];?></td>                                
                                 <td class="text-right">
                                   
@@ -79,13 +81,17 @@
 							
 							<div class="row">
 							
-							<div class="form-group col-6">
+							<div class="form-group col-4">
                               <label for="recipient-name" class="col-form-label">Product Name:</label>
-                              <input type="text"  class="form-control" name="proname" required >
+                              <input type="disabled"  class="form-control" name="proname" value ="Applications <?php echo generateRandomNumber();?>" >
                             </div>
-                            <div class="form-group col-6">
+                            <div class="form-group col-4">
                               <label for="recipient-name" class="col-form-label">Price:</label>
                               <input type="number" class="form-control" name="propric" required >
+                            </div>
+							 <div class="form-group col-4">
+                              <label for="recipient-name" class="col-form-label">Commission:</label>
+                              <input type="text" class="form-control" name="procomssion" required >
                             </div>
 							</div>
 							

@@ -99,7 +99,7 @@
               </div>
               <div class="profile-name">
                 <p class="name">
-                  Welcome <?php echo $this->session->userdata('username');?>
+                  Welcome <?php echo $this->session->userdata('adminusername');?>
                 </p>
                 <p class="designation">
                   <?php echo $this->session->userdata('rights');?>

@@ -17,7 +17,9 @@
     <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/custom.css">
     <script src="<?php echo base_url();?>phd/tailwind/cdn.tailwindcss.com_3.3.3.js" />
     </script>
-    <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/vant@4.6.4_lib.css">
+	<link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/fontawesome-free-6.4.2/css/all.css" />
+     
+	<link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/vant@4.6.4_lib.css">
     <script src="<?php echo base_url();?>phd/tailwind/vant@4.6.4_lib.js"></script>
      <style>
       body {
@@ -78,13 +80,13 @@
                 <div class="flex items-center">
                   <div class="text-black text-sm font-medium">Username</div>
                 </div>
-                <div class="text-[#666] text-sm font-medium"></div>
+                <div class="text-[#666] text-sm font-medium"><?php echo  $this->Client_model->get_clientdetails('clt_name'); ?></div>
               </div>
               <div class="flex items-center justify-between p-4">
                 <div class="flex items-center">
                   <div class="text-black text-sm font-medium">Phone</div>
                 </div>
-                <div class="text-[#666] text-sm font-medium"></div>
+                <div class="text-[#666] text-sm font-medium"><?php echo  $this->Client_model->get_clientdetails('clt_phone'); ?></div>
               </div>
             </div>
             <div class="mt-4 flex flex-col bg-white shadow rounded">

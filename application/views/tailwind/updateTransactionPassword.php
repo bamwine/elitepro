@@ -9,16 +9,15 @@
     <link rel="shortcut icon" href="" />
     <?php include 'css.php';?>
 	<link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png" />
-    <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/daisyui@3.5.0_dist_full.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/tailwind.min.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/flowbite_1.8.0_flowbite.min.css">
+
     <script src="<?php echo base_url();?>phd/tailwind/vue@3.3.4_dist_vue.global.min.js"></script>
     <script src="<?php echo base_url();?>phd/tailwind/axios@1.4.0_dist_axios.min.js"></script>
     <script src="<?php echo base_url();?>phd/tailwind/custom.js"></script>
     <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/custom.css">
     <script src="<?php echo base_url();?>phd/tailwind/cdn.tailwindcss.com_3.3.3.js" />
     </script>
-    <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/vant@4.6.4_lib.css">
+	<link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/fontawesome-free-6.4.2/css/all.css" />
+   <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/vant@4.6.4_lib.css">
     <script src="<?php echo base_url();?>phd/tailwind/vant@4.6.4_lib.js"></script>
      <style>
       body {
@@ -65,7 +64,7 @@
                 </div>
               </div>
              <div class="w-full pl-6 pr-6 box-border flex flex-col">
-            <form class="w-full flex flex-col mt-6" action="<?php echo base_url(); ?>Client/updateTransaction"  method="post" enctype="multipart/form-data" >
+            <form class="w-full flex flex-col mt-6" action="<?php echo base_url(); ?>Client/updateTransaction/update"  method="post" enctype="multipart/form-data" >
               <div class="w-full flex flex-col">
                 <div class="text-[#666] font-semibold text-base pl-4">Old Password</div>
                 <div class="w-full mt-2 overflow-hidden shadow">

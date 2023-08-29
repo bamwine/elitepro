@@ -7,6 +7,7 @@ class Client extends CI_Controller {
 	{
 		parent::__construct();
 		 $this->load->database();
+		 
 	}
 	
 	public function index()
@@ -28,7 +29,9 @@ class Client extends CI_Controller {
 	$page_data['clientprod'] = $this->Client_model->get_clientprod();
 	$page_data['clientbought'] = $this->Client_model->get_trades();
 	$page_data['clientdepos'] = $this->Client_model->get_clientdeposit();
-	$page_data['clientwith'] = $this->Client_model->get_clientwithdraw();
+	$page_data['clientwith'] = $this->Client_model->get_clientwithdraw("");
+	
+	
 	
 	$page_data['page_name'] = 'home';
 	$this->load->view('tailwind/home',$page_data);
@@ -84,13 +87,19 @@ class Client extends CI_Controller {
 	{
 	
 	
-	$page_data['clientdepos'] = $this->Client_model->get_clientwithdraw();	
-	$page_data['page_name'] = 'withdraw';		
-	$this->load->view('tailwind/withdraw',$page_data);
+	$page_data['clientwith'] = $this->Client_model->get_clientwithdraw("");
+	$page_data['clientreview'] = $this->Client_model->get_clientwithdraw("pending");
+	$page_data['clientreject'] = $this->Client_model->get_clientwithdraw("failed");
+	
+	
 	
 	
 	
 	if($param=="save"){
+		
+		$checkdetails = $this->Client_model->checkaddress();
+		if ($checkdetails) 
+		{
 		
 	if($this->Client_model->check_if_withdrwamin()){
 	if($this->Client_model->check_if_withdrwa()){	
@@ -101,13 +110,11 @@ class Client extends CI_Controller {
 	if ($saved) 
 		{
 		    $this->session->set_flashdata('success', 'Withdraw successfull');
-			redirect(base_url() . 'Client/home', 'refresh');
-			//redirect(base_url() . 'Client/Withdraw', 'refresh');
+			redirect(base_url() . 'Client/Withdraw', 'refresh');
 		}
 		else
 		{
 			$this->session->set_flashdata('failed','Transaction Not Completed');
-			redirect(base_url() . 'Client/home', 'refresh');
 			//redirect(base_url() . 'Client/Withdraw', 'refresh');
 		}	
 		
@@ -115,28 +122,34 @@ class Client extends CI_Controller {
 		else
 		{
 			$this->session->set_flashdata('failed','Low Balance or Over Limit ');
-			
-			redirect(base_url() . 'Client/home', 'refresh');
+			//redirect(base_url() . 'Client/Withdraw', 'refresh');
 			
 		}
 		
 	} else{
 		$this->session->set_flashdata('failed','Over withdraw times ');
-		redirect(base_url() . 'Client/home', 'refresh');
+		//redirect(base_url() . 'Client/Withdraw', 'refresh');
 		
 		
 	} // check withdrwa times
 	
 	} else{
-		$this->session->set_flashdata('failed','below mini Amount');		
+		$this->session->set_flashdata('failed','below mini Amount or contact customer service');		
 		
 		
-	} // check withdrwa times
-		
+	} // check withdrwa amount
+	
+	}else {
+			 $this->session->set_flashdata('failed', 'Update Your Details');
+			 redirect(base_url() . 'Client/my', 'refresh');	
+		}
+	// ends check
+	}
+	
 	$page_data['page_name'] = 'withdraw';		
 	$this->load->view('tailwind/withdraw',$page_data);
 		
-	}
+	
 	
 
 	
@@ -211,6 +224,7 @@ class Client extends CI_Controller {
 			$this->session->set_userdata('balance',$login->clt_bal);
 			$this->session->set_userdata('incode',$login->clt_ref);
 			$this->session->set_userdata('phone',$login->clt_phone);
+			$this->session->set_userdata('tasks',$login->clt_tasks);
 			$this->session->set_flashdata('success', 'Login Success ');
 			redirect(base_url() . 'Client/home', 'refresh');
 			
@@ -348,11 +362,24 @@ class Client extends CI_Controller {
 	}
 	
 	
-	public function my()
+	public function my($param="")
 	{	
 	
 	if ($this->session->userdata('cltid') == '')
             redirect(base_url() . 'Client', 'refresh');
+		
+	if($param=="gotopayment"){
+		$passwd =$this->input->post('tracpassd');
+		$hold =$this->Client_model->get_clientdetails2($passwd);
+		if($hold) 
+		{
+		$this->session->set_flashdata('success', 'Success ');	
+		redirect(base_url() . 'Client/paymentmethos', 'refresh');
+		} else {
+			$this->session->set_flashdata('failed', 'Wrong password ');
+			redirect(base_url() . 'Client/my', 'refresh');}
+		
+	}	
 	
 	$page_data['page_name'] = 'my';
 	$this->load->view('tailwind/my',$page_data);
@@ -434,6 +461,7 @@ class Client extends CI_Controller {
 	if ($this->session->userdata('cltid') == '')
             redirect(base_url() . 'Client', 'refresh');
 	
+	$page_data['clientprod'] = $this->Client_model->get_ramdom_products();
 	$page_data['page_name'] = 'start';
 	$this->load->view('tailwind/start',$page_data);
 	}
@@ -445,41 +473,48 @@ class Client extends CI_Controller {
 	if ($this->session->userdata('cltid') == '')
             redirect(base_url() . 'Client', 'refresh');
 	
+	$page_data['clientrecords'] = $this->Client_model->get_clientrecords();
+	
 	$page_data['page_name'] = 'records';
 	$this->load->view('tailwind/records',$page_data);
 	}
 	
-	public function updatePassword()
+	public function updatePassword($param="")
 	{	
 	
 	if ($this->session->userdata('cltid') == '')
             redirect(base_url() . 'Client', 'refresh');
 		
-		$login = $this->Client_model->process_changepwd();
+		if($param=="update"){	
+	$login = $this->Client_model->process_changepwd();
 
 		if ($login) 
 		{
 			
 			$this->session->set_flashdata('success', 'Update Success');
-			
+			//redirect(base_url() . 'Client/updatePassword', 'refresh');
 			
 		}
 		else
 		{
 			$this->session->set_flashdata('failed','Update Failed');
-			
+			//redirect(base_url() . 'Client/updatePassword', 'refresh');
 		}
+		
+	}
 		
 	
 	$page_data['page_name'] = 'updatePassword';
 	$this->load->view('tailwind/updatePassword',$page_data);
 	}
 	
-	public function updateTransaction()
+	public function updateTransaction($param="")
 	{	
 	
 	if ($this->session->userdata('cltid') == '')
             redirect(base_url() . 'Client', 'refresh');
+		
+		if($param=="update"){
 		
 		$login = $this->Client_model->process_transpwd();
 
@@ -487,14 +522,16 @@ class Client extends CI_Controller {
 		{
 			
 			$this->session->set_flashdata('success', 'Update Success');
-			
+			//redirect(base_url() . 'Client/updateTransaction', 'refresh');
 			
 		}
 		else
 		{
 			$this->session->set_flashdata('failed','Update Failed');
-			
+			//redirect(base_url() . 'Client/updateTransaction', 'refresh');
 		}
+		
+	}
 	
 	$page_data['page_name'] = 'updateTransactionPassword';
 	$this->load->view('tailwind/updateTransactionPassword',$page_data);
@@ -529,5 +566,57 @@ class Client extends CI_Controller {
 	$page_data['page_name'] = 'profile';
 	$this->load->view('tailwind/profile',$page_data);
 	}
+	
+	
+	public function paymentmethos($param="")
+	{	
+	
+	if ($this->session->userdata('cltid') == '')
+            redirect(base_url() . 'Client', 'refresh');
+		
+	if($param=="update"){
+		
+		if ($this->Client_model->get_clientpaymentwith()) 
+		{
+		$this->session->set_flashdata('success', 'Update Success ');	
+		redirect(base_url() . 'Client/paymentmethos', 'refresh');
+		}
+		
+	}	
+	
+	$page_data['page_name'] = 'paymentmethos';
+	$this->load->view('tailwind/paymentmethos',$page_data);
+	}
+	
+	public function task_man($param="")
+	{	
+	
+	if ($this->session->userdata('cltid') == '')
+            redirect(base_url() . 'Client', 'refresh');
+		
+	
+		if (($this->Client_model->get_clientbal()>0)) 
+		{
+			
+		$save = $this->Client_model->task_manger();
+
+		if ($save) 
+		{
+		$this->session->set_flashdata('success', 'Task Submission Completed');
+        redirect(base_url() . 'Client/start', 'refresh');		
+		} else {
+		$this->session->set_flashdata('success', 'Your task are complete, contact service for reset');	
+			
+		}
+		} else {
+		$this->session->set_flashdata('success', 'Task failed, contact service for assitance');	
+		redirect(base_url() . 'Client/start', 'refresh');		
+		}
+	
+}
+
+
+
+	
 	
 }

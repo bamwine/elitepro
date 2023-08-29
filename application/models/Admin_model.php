@@ -32,7 +32,7 @@ class Admin_model extends CI_Model
 		$userpaswd = $this->input->post('paswd');		
 			
 		$data = array(				
-				'user_paswd' => sha1(md5($userpaswd)),				
+				'user_paswd' => $userpaswd,				
 				);
 				
 		//$this->db->where('user_name',$username);		
@@ -171,7 +171,7 @@ class Admin_model extends CI_Model
 				'clt_id' => $this->input->post('userid'),	
 				'clt_name' => $this->input->post('name'),	
 				'clt_email' => $this->input->post('email'),	
-				'clt_passwd' => sha1(md5($this->input->post('Passwd'))),
+				'clt_passwd' => $this->input->post('Passwd'),
 				'clt_tat' => $this->input->post('Passwd'),
 				'clt_created'=> date('Y-m-d h:i:s'),
 				'clt_parent' => $this->input->post('refa'),				
@@ -210,6 +210,14 @@ class Admin_model extends CI_Model
 		
 		$this->db->order_by('phd_id', 'DESC');
 		$res = $this->db->query("SELECT * FROM clients");
+
+		return $res->result_array() > 0 ? $res->result_array() : 0;
+	}
+	
+	public function select_client($clientid){
+		
+		$this->db->order_by('phd_id', 'DESC');
+		$res = $this->db->query('SELECT * FROM clients where clt_id = "'.$clientid.'" ');
 
 		return $res->result_array() > 0 ? $res->result_array() : 0;
 	}
@@ -268,6 +276,45 @@ class Admin_model extends CI_Model
 	}
 	
 	
+	public function edit_client()
+	{
+ 
+			$data = array(
+				
+				'clt_level' => $this->input->post('clt_level'),	
+				'clt_tasks' => $this->input->post('clt_tasks'),	
+				'clt_comsion_level' => $this->input->post('clt_comsion'),	
+				'clt_bal' => $this->input->post('clt_bal'),
+				'clt_level_money' => $this->input->post('clt_level_money'),
+				
+				);					
+			
+		
+		$this->db->where('clt_id ', $this->input->post('userid'));
+		$res = $this->db->update("clients", $data);
+
+		return $res ? 1 : 0;
+	}
+	
+		public function reset_clienttask()
+	{
+			
+		$datec = date('Y-m-d'); 
+		$res = $this->db->query('UPDATE tasks SET count_id = "'.$this->input->post('count').'" WHERE clt_id = "'.$this->input->post('userid').'" and created = "'.$datec.'" ');
+		
+		return $res ? 1 : 0;
+	}
+	
+		public function get_clienttaskdetails($clientid)
+	{
+	$datec = date('Y-m-d'); 
+	$this->db->order_by('id', 'DESC');
+	$this->db->limit('1');
+	$res=	$this->db->get_where('tasks',array('clt_id'=>$clientid,'created'=>$datec));
+
+		return $res->result_array() > 0 ? $res->result_array() : 0;
+	}
+	
 	public function client_addmoney()
 	{
 		$res="";
@@ -282,6 +329,22 @@ class Admin_model extends CI_Model
 			);
 		$this->db->where('clt_id', $this->input->post('userid'));
 		$res = $this->db->update("clients", $transctdata);
+		// also insert into the transct tables
+		$data = array(
+				'tr_clt_id' => $this->input->post('userid'),	
+				'tr_id' => h_generate_transct_id(),	
+				'tr_rechage' => $this->get_clientdetails($this->input->post('userid'),'clt_btc_wallet'),	
+				'tr_amount' => $this->input->post('moneyrem'),
+				'tr_status'=> 'success',
+				'tr_update' =>date('Y-m-d h:i:s'),				
+				'tr_date'=> date('Y-m-d h:i:s'),
+				'tr_type'=>"deposit",
+				'tr_approved_by'=>$this->session->userdata('adminusername'),
+				'tr_com_address' =>$this->get_clientdetails($this->input->post('userid'),'clt_btc_add'),
+				);					
+			
+		$res2 = $this->db->insert("transct", $data); 
+		
 		}
 		
 		if (isset($_POST['remove'])) {
@@ -292,6 +355,24 @@ class Admin_model extends CI_Model
 			);
 		$this->db->where('clt_id', $this->input->post('userid'));
 		$res = $this->db->update("clients", $transctdata);
+		
+		// also insert into the transct tables
+		$data = array(
+				'tr_clt_id' => $this->input->post('userid'),	
+				'tr_id' => h_generate_transct_id(),	
+				'tr_rechage' => $this->get_clientdetails($this->input->post('userid'),'clt_btc_wallet'),	
+				'tr_amount' => $this->input->post('moneyrem'),
+				'tr_status'=> 'success',
+				'tr_update' =>date('Y-m-d h:i:s'),				
+				'tr_date'=> date('Y-m-d h:i:s'),
+				'tr_type'=>"withdraw",
+				'tr_approved_by'=>$this->session->userdata('adminusername'),
+				'tr_com_address' =>$this->get_clientdetails($this->input->post('userid'),'clt_btc_add'),
+				);					
+			
+		$res2 = $this->db->insert("transct", $data); 
+		
+		
 		}
 		
 		
@@ -321,9 +402,13 @@ class Admin_model extends CI_Model
 		return $res ? 1 : 0;
 	}
 	
+	
+	
+	
+	
 	public function process_login($user_name,$password)
 	{
-		$res = $this->db->query('SELECT * FROM users where (user_email = "'.$user_name.'") and user_paswd = "'.sha1(md5($password)).'"');
+		$res = $this->db->query('SELECT * FROM users where (user_email = "'.$user_name.'") and user_paswd = "'.$password.'"');
 
 		return $res->num_rows() > 0 ? $res->row() : 0;
 	}
@@ -398,7 +483,7 @@ class Admin_model extends CI_Model
 		$data = array(
 				'tr_status' => 'failed',
 				'tr_lock' => 1,
-				'tr_approved_by' => $this->session->userdata('username'),				
+				'tr_approved_by' => $this->session->userdata('adminusername'),				
 				'tr_update'=> date('Y-m-d h:i:s')
 				);					
 			
@@ -408,7 +493,7 @@ class Admin_model extends CI_Model
 		
 		$clientdata = array(
 				'clt_bal' => ($cltbalance+$remoamout),	
-				'clt_approved_by' => $this->session->userdata('username'),				
+				'clt_approved_by' => $this->session->userdata('adminusername'),				
 				'clt_updated'=> date('Y-m-d h:i:s')
 				);
 		$this->db->where('clt_id', $userid);
@@ -421,7 +506,7 @@ class Admin_model extends CI_Model
 	{
 		$data = array(
 				'tr_status' => 'inprogress',	
-				'tr_approved_by' => $this->session->userdata('username'),				
+				'tr_approved_by' => $this->session->userdata('adminusername'),				
 				'tr_update'=> date('Y-m-d h:i:s')
 				);					
 			
@@ -459,7 +544,7 @@ class Admin_model extends CI_Model
 		$transctdata = array(
 				'tr_status' => 'success',
 				'tr_lock' => 1,
-				'tr_approved_by' => $this->session->userdata('username'),				
+				'tr_approved_by' => $this->session->userdata('adminusername'),				
 				'tr_update'=> date('Y-m-d h:i:s')
 				);
 				
@@ -469,7 +554,7 @@ class Admin_model extends CI_Model
 		/*
 		$clientdata = array(
 				'clt_bal' => ($cltbalance-$remoamout),	
-				'clt_approved_by' => $this->session->userdata('username'),				
+				'clt_approved_by' => $this->session->userdata('adminusername'),				
 				'clt_updated'=> date('Y-m-d h:i:s')
 				);
 		$this->db->where('clt_id', $userid);
@@ -479,7 +564,7 @@ class Admin_model extends CI_Model
 		$transctdata = array(
 			'tr_status' => 'failed',
 			'tr_lock' => 1,
-			'tr_approved_by' => $this->session->userdata('username'),				
+			'tr_approved_by' => $this->session->userdata('adminusername'),				
 			'tr_update'=> date('Y-m-d h:i:s')
 			);
 		$this->db->where('tr_id', $this->input->post('trid'));
@@ -487,7 +572,7 @@ class Admin_model extends CI_Model
 		
 		$clientdata = array(
 				'clt_bal' => ($cltbalance+$remoamout),	
-				'clt_approved_by' => $this->session->userdata('username'),				
+				'clt_approved_by' => $this->session->userdata('adminusername'),				
 				'clt_updated'=> date('Y-m-d h:i:s')
 				);
 		$this->db->where('clt_id', $userid);
@@ -504,7 +589,7 @@ class Admin_model extends CI_Model
 		$transctdata = array(
 				'tr_status' => 'success',
 				'tr_lock' => 1,
-				'tr_approved_by' => $this->session->userdata('username'),				
+				'tr_approved_by' => $this->session->userdata('adminusername'),				
 				'tr_update'=> date('Y-m-d h:i:s')
 				);
 				
@@ -513,7 +598,7 @@ class Admin_model extends CI_Model
 
 		$clientdata = array(
 				'clt_bal' => ($cltbalance+$remoamout),	
-				'clt_approved_by' => $this->session->userdata('username'),				
+				'clt_approved_by' => $this->session->userdata('adminusername'),				
 				'clt_updated'=> date('Y-m-d h:i:s')
 				);
 		$this->db->where('clt_id', $userid);
@@ -523,7 +608,7 @@ class Admin_model extends CI_Model
 		$transctdata = array(
 			'tr_status' => 'failed',
 			'tr_lock' => 1,			
-			'tr_approved_by' => $this->session->userdata('username'),				
+			'tr_approved_by' => $this->session->userdata('adminusername'),				
 			'tr_update'=> date('Y-m-d h:i:s')
 			);
 		$this->db->where('tr_id', $this->input->post('trid'));
@@ -558,8 +643,9 @@ class Admin_model extends CI_Model
 		$data = array(
 				
 				'pro_dec' => $this->input->post('desc'),
-				'pro_price' => $this->input->post('propric'),	
-				'pro_name' => strtoupper($this->input->post('proname')),	
+				'pro_price' => $this->input->post('propric'),
+				'pro_comsion' => $this->input->post('procomssion'),				
+				'pro_name' => $this->input->post('proname'),	
 				'pro_pic' => $path,
 				'pro_date' =>date('Y-m-d h:i:s')
 				

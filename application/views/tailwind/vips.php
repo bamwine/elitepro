@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/custom.css">
     <script src="<?php echo base_url();?>phd/tailwind/cdn.tailwindcss.com_3.3.3.js" />
     </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/fontawesome-free-6.4.2/css/all.css" />
     <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/vant@4.6.4_lib.css">
     <script src="<?php echo base_url();?>phd/tailwind/vant@4.6.4_lib.js"></script>
     <style>
@@ -72,10 +72,13 @@
                   <div class="flex flex-col">
                     <div class="flex items-center">
                       <div class="text-base text-[#333] font-semibold mr-2">VIP1</div>
-                      <!---->
-                      <!---->
+                      <?php if($this->Client_model->get_clientdetails('clt_level')=="VIP1"){ ?>
+						<span class="van-tag van-tag--round van-tag--default" style="background: #FFAA00;">Current</span>
+						<?php } else {?>
+						<a class="text-sm text-[#FFAA00] font-semibold mr-2 underline" href="<?php echo $this->db->get_where('settings' , array('type' =>'customerservice'))->row()->description;?>">Upgrade now</a>
+						<?php }?>
                     </div>
-                    <div class="mt-2 text-[var(--main-color)] text-sm font-semibold">USDT 100</div>
+                    <div class="mt-2 text-[#FFAA00] text-sm font-semibold">USDT 100</div>
                     <div class="mt-2 text-xs text-[#666]">Per Task Commission 0.4%</div>
                     <div class="mt-2 text-xs text-[#666]">40 Task Completed/Set</div>
                     <div class="mt-2 text-xs text-[#666]">Able to withdraw 4 times, 0% Charges</div>
@@ -88,12 +91,13 @@
                   <div class="flex flex-col">
                     <div class="flex items-center">
                       <div class="text-base text-[#333] font-semibold mr-2">VIP2</div>
-                      <span class="van-tag van-tag--round van-tag--default" style="background: var(--main-color);">Current
-                        <!---->
-                      </span>
-                      <!---->
-                    </div>
-                    <div class="mt-2 text-[var(--main-color)] text-sm font-semibold">USDT 500</div>
+                       <?php if($this->Client_model->get_clientdetails('clt_level')=="VIP2"){ ?>
+						<span class="van-tag van-tag--round van-tag--default" style="background: #FFAA00;">Current</span>
+						<?php } else {?>
+						<a class="text-sm text-[#FFAA00] font-semibold mr-2 underline" href="<?php echo $this->db->get_where('settings' , array('type' =>'customerservice'))->row()->description;?>">Upgrade now</a>
+						<?php }?>
+					  </div>
+                    <div class="mt-2 text-[#FFAA00] text-sm font-semibold">USDT 500</div>
                     <div class="mt-2 text-xs text-[#666]">Per Task Commission 0.6%</div>
                     <div class="mt-2 text-xs text-[#666]">45 Task Completed/Set</div>
                     <div class="mt-2 text-xs text-[#666]">Able to withdraw 4 times, 0% Charges</div>
@@ -106,10 +110,13 @@
                   <div class="flex flex-col">
                     <div class="flex items-center">
                       <div class="text-base text-[#333] font-semibold mr-2">VIP3</div>
-                      <!---->
-                      <div class="text-sm text-[var(--main-color)] font-semibold mr-2 underline">Upgrade now</div>
-                    </div>
-                    <div class="mt-2 text-[var(--main-color)] text-sm font-semibold">USDT 1500</div>
+                       <?php if($this->Client_model->get_clientdetails('clt_level')=="VIP3"){ ?>
+						<span class="van-tag van-tag--round van-tag--default" style="background: #FFAA00;">Current</span>
+						<?php } else {?>
+						<a class="text-sm text-[#FFAA00] font-semibold mr-2 underline" href="<?php echo $this->db->get_where('settings' , array('type' =>'customerservice'))->row()->description;?>">Upgrade now</a>
+						<?php }?>
+					  </div>
+                    <div class="mt-2 text-[#FFAA00] text-sm font-semibold">USDT 1500</div>
                     <div class="mt-2 text-xs text-[#666]">Per Task Commission 0.8%</div>
                     <div class="mt-2 text-xs text-[#666]">50 Task Completed/Set</div>
                     <div class="mt-2 text-xs text-[#666]">Able to withdraw 5 times, 0% Charges</div>
@@ -122,10 +129,13 @@
                   <div class="flex flex-col">
                     <div class="flex items-center">
                       <div class="text-base text-[#333] font-semibold mr-2">VIP4</div>
-                      <!---->
-                      <div class="text-sm text-[var(--main-color)] font-semibold mr-2 underline">Upgrade now</div>
-                    </div>
-                    <div class="mt-2 text-[var(--main-color)] text-sm font-semibold">USDT 5000</div>
+                      <?php if($this->Client_model->get_clientdetails('clt_level')=="VIP4"){ ?>
+						<span class="van-tag van-tag--round van-tag--default" style="background: #FFAA00;">Current</span>
+						<?php } else {?>
+						<a class="text-sm text-[#FFAA00] font-semibold mr-2 underline" href="<?php echo $this->db->get_where('settings' , array('type' =>'customerservice'))->row()->description;?>">Upgrade now</a>
+						<?php }?>
+					 </div>
+                    <div class="mt-2 text-[#FFAA00] text-sm font-semibold">USDT 5000</div>
                     <div class="mt-2 text-xs text-[#666]">Per Task Commission 1%</div>
                     <div class="mt-2 text-xs text-[#666]">55 Task Completed/Set</div>
                     <div class="mt-2 text-xs text-[#666]">Able to withdraw 6 times, 0% Charges</div>

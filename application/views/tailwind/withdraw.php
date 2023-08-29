@@ -9,15 +9,12 @@
     <link rel="shortcut icon" href="" />
     <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png" />
     <?php include 'css.php';?>
-	<link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/daisyui@3.5.0_dist_full.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/tailwind.min.css">
-    <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/flowbite_1.8.0_flowbite.min.css">
-    <script src="<?php echo base_url();?>phd/tailwind/vue@3.3.4_dist_vue.global.min.js"></script>
+	<script src="<?php echo base_url();?>phd/tailwind/vue@3.3.4_dist_vue.global.min.js"></script>
     <script src="<?php echo base_url();?>phd/tailwind/axios@1.4.0_dist_axios.min.js"></script>
     <script src="<?php echo base_url();?>phd/tailwind/custom.js"></script>
     <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/custom.css">
     <script src="<?php echo base_url();?>phd/tailwind/cdn.tailwindcss.com_3.3.3.js" /></script>    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/fontawesome-free-6.4.2/css/all.css" />
     <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/vant@4.6.4_lib.css">
     <style>
       body {
@@ -121,7 +118,7 @@
                       <div class="flex flex-col justify-between p-4 box-border rounded-xl bg-[url('<?php echo base_url();?>phd/tailwind/bg3.png')] bg-cover shadow mb-4">
                         <div class="text-white opacity-70 text-sm font-semibold">Account Amount</div>
                         <div class="flex mt-4 mb-4">
-                          <div class="text-white text-3xl font-bold flex items-center"><?php echo $this->session->userdata('balance');?></div>
+                          <div class="text-white text-3xl font-bold flex items-center"><?php echo  $this->Client_model->get_clientdetails('clt_bal'); ?></div>
                           <div class="text-white text-sm font-bold flex items-center ml-2 pt-[12px]">USDT</div>
                         </div>
                         <div class="text-white opacity-70 text-xs font-semibold">You will receive your withdrawal within an hour</div>
@@ -129,19 +126,17 @@
                       <div class="w-full">
                         <!---->
                         <div class="w-full mt-4 box-border flex flex-col">
-                          <div class="w-full flex flex-col">
+                          <form class="w-full flex flex-col" action="<?php echo base_url(); ?>Client/withdraw/save"  method="post" enctype="multipart/form-data" >
                             <!---->
                             <div class="w-full flex flex-col mt-2">
                               <div class="text-[#666] font-semibold text-base pl-4">Withdraw Amount</div>
                               <div class="w-full mt-2 overflow-hidden shadow">
                                 <div class="van-cell van-field">
-                                  <!---->
-                                  <!---->
+                                  
                                   <div class="van-cell__value van-field__value">
                                     <div class="van-field__body">
-                                      <input type="text" id="van-field-9-input" class="van-field__control" placeholder="Withdraw Amount">
-                                      <!---->
-                                      <!---->
+                                      <input type="number" id="van-field-9-input" class="van-field__control" name="with_amt" placeholder="Withdraw Amount">
+                                      
                                       <div class="van-field__button">
                                         <button type="button" class="van-button van-button--primary van-button--small" style="color: white; background: #FAAF36; border-color: #FAAF36;">
                                           <div class="van-button__content">
@@ -154,11 +149,9 @@
                                         </button>
                                       </div>
                                     </div>
-                                    <!---->
-                                    <!---->
+                                    
                                   </div>
-                                  <!---->
-                                  <!---->
+                                  
                                 </div>
                               </div>
                             </div>
@@ -170,24 +163,18 @@
                                   <!---->
                                   <div class="van-cell__value van-field__value">
                                     <div class="van-field__body">
-                                      <input type="password" id="van-field-10-input" class="van-field__control" placeholder="Transaction Password">
-                                      <!---->
-                                      <!---->
-                                      <!---->
+                                      <input type="password" id="van-field-10-input" class="van-field__control" name="tracpassd" placeholder="Transaction Password">
                                     </div>
-                                    <!---->
-                                    <!---->
-                                  </div>
-                                  <!---->
-                                  <!---->
+                                   </div>
+                                  
                                 </div>
                               </div>
                             </div>
                             <div class="w-full mt-6">
-                              <button type="button" class="text-white font-bold block w-full rounded bg-[#FFAA00] hover:bg-[#FFAA00]   p-4   " data-te-ripple-init> Withdraw </button>
+                              <button type="submit" class="text-white font-bold block w-full rounded bg-[#FFAA00] hover:bg-[#FFAA00]   p-4   " data-te-ripple-init> Withdraw </button>
                             </div>
                             <!---->
-                          </div>
+                          </form>
                         </div>
                       </div>
                     </div>
@@ -203,23 +190,8 @@
             </div>
             <div class="van-tab-content">
               <div class="tab-content nested-tab-content" id="nestedTabContent0">
-                <div>
-                                <div class="w-full mb-4 bg-white rounded-xl shadow flex flex-col p-3">
-                                  <div class="flex justify-between">
-                                    <div class="text-sm font-semibold text-[#999]">202307224634046201530982400</div>
-                                  </div>
-                                  <div class="flex text-base text-[#FAAF36] font-semibold items-center mt-3">USDT 1060</div>
-                                  <div class="flex justify-between mt-3">
-                                    <div class="text-sm font-normal text-[#999]">2023-07-22 10:22:20</div>
-                                  </div>
-                                </div>
-                              </div>
-                              <!---->
-                              <div class="van-list__finished-text">No more data...</div>
-              </div>
-              <div class="tab-content nested-tab-content" id="nestedTabContent1">
                  <?php 
-							foreach($clientdepos as $row){
+							foreach($clientreview as $row){
 									?>
 							  <div>
                                 <div class="w-full mb-4 bg-white rounded-xl shadow flex flex-col p-3">
@@ -235,10 +207,48 @@
 							  <?php 
 							}
 							?>
+                              <!---->
+                              <div class="van-list__finished-text">No more data...</div>
+              </div>
+              <div class="tab-content nested-tab-content" id="nestedTabContent1">
+                 <?php 
+							foreach($clientwith as $row){
+									?>
+							  <div>
+                                <div class="w-full mb-4 bg-white rounded-xl shadow flex flex-col p-3">
+                                  <div class="flex justify-between">
+                                    <div class="text-sm font-semibold text-[#999]"><?php echo  $row['tr_id']; ?></div>
+                                  </div>
+                                  <div class="flex text-base text-[#FAAF36] font-semibold items-center mt-3">USDT <?php echo  $row['tr_amount']; ?></div>
+                                  <div class="flex justify-between mt-3">
+                                    <div class="text-sm font-normal text-[#999]"><?php echo  $row['tr_update']; ?></div>
+                                  </div>
+                                </div>
+                              </div>
+							  <?php 
+							}
+							?>
+							<div class="van-list__finished-text">No more data...</div>
               </div>
               <div class="tab-content nested-tab-content" id="nestedTabContent2">
-                <h2>Reject Content</h2>
-                <p>This is the content of Reject tab.</p>
+                <?php 
+							foreach($clientreject as $row){
+									?>
+							  <div>
+                                <div class="w-full mb-4 bg-white rounded-xl shadow flex flex-col p-3">
+                                  <div class="flex justify-between">
+                                    <div class="text-sm font-semibold text-[#999]"><?php echo  $row['tr_id']; ?></div>
+                                  </div>
+                                  <div class="flex text-base text-[#FAAF36] font-semibold items-center mt-3">USDT <?php echo  $row['tr_amount']; ?></div>
+                                  <div class="flex justify-between mt-3">
+                                    <div class="text-sm font-normal text-[#999]"><?php echo  $row['tr_update']; ?></div>
+                                  </div>
+                                </div>
+                              </div>
+							  <?php 
+							}
+							?>
+							<div class="van-list__finished-text">No more data...</div>
               </div>
             </div>
           </div>

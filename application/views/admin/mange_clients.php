@@ -22,7 +22,7 @@
                         <tr>
                             <th>Client Id #</th>
                             <th>Name</th>
-                            <th>Email</th>
+                            <th>Phone</th>
                             <th>Account Balance</th>
                             <th>Subodnates</th>
                             <th>Registration Date</th>                            
@@ -34,8 +34,8 @@
                         <tr>
                             <td><?php echo $row['clt_id'];?></td>
                             <td><?php echo $row['clt_name'];?></td>
-                            <td><?php echo $row['clt_email'];?></td>
-                            <td><?php echo $row['clt_bal'];?></td>
+                            <td><?php echo $row['clt_phone'];?></td>
+                            <td><?php echo number_format($row['clt_bal'],3);?></td>
                             <td><?php echo $this->Admin_model->get_mysubonates($row['clt_ref']);?></td>
                             <td><?php echo $row['clt_created'];?></td>                            
                             <td class="text-right">
@@ -43,6 +43,8 @@
 												<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
 												<?php // if($this->session->userdata('rights')=="super"){ ?>
 												<div class="dropdown-menu dropdown-menu-right">
+													<a class="dropdown-item" href="<?php echo base_url(); ?>Admin/mange_clients/viewetask/<?php echo $row['clt_id'];?>"><i class="fa fa-edit"></i> Reset Task</a>
+													<a class="dropdown-item" href="<?php echo base_url(); ?>Admin/mange_clients/viewedit/<?php echo $row['clt_id'];?>"><i class="fa fa-edit"></i> Edit client</a>
 													<a class="dropdown-item" href="#" data-toggle="modal" data-target="#editModal<?php echo $row['clt_id'];?>"><i class="fa fa-dollar-sign"></i> Add Money</a>
 													<a class="dropdown-item" onclick="delet('<?php echo $row['clt_id'];?>')"><i class="fa fa-trash"></i> Delete</a>
 													<a class="dropdown-item" onclick="lock('<?php echo $row['clt_status']=='open' ? 'locked' : 'open';?>,<?php echo $row['clt_id'];?>')"><i class="fa fa-<?php echo $row['clt_status']=='open' ? 'unlock' : 'lock';?>"></i>  <?php echo $row['clt_status']=='open' ? 'lock' : 'unlock';?> </a>
@@ -51,7 +53,9 @@
 											<span class="badge <?php echo $row['clt_status']=='open' ? 'badge-success' : 'badge-danger';?>"> <?php echo $row['clt_status'];?></span>
 										</td>
                         </tr>
-						
+					
+
+					
 				<div class="modal fade" id="editModal<?php echo $row['clt_id'];?>" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">
                       <div class="modal-content">
