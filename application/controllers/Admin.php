@@ -79,6 +79,14 @@ class Admin extends CI_Controller {
 		
 		}
 		
+		if($param1=='viewedit'){
+			
+			$page_data['page_name'] = 'edit_users';
+			$page_data['get_client'] = $this->Admin_model->select_user($param2);	
+			$this->load->view('admin/index',$page_data);
+		
+		}
+		
 		
 	}
 
@@ -153,9 +161,33 @@ class Admin extends CI_Controller {
 		
 		}
 		
+		
+		if($param1=='editpwd'){
+			
+			$update_user = $this->Admin_model->edit_clientpwd();
+			if ($update_user) 
+			{
+				
+			$this->session->set_flashdata('success', 'successfull Made');
+			redirect(base_url() . 'Admin/mange_clients', 'refresh');
+				
+			}
+		
+		}
+		
+		
+		
 		if($param1=='viewedit'){
 			
 			$page_data['page_name'] = 'edit_clients';
+			$page_data['get_client'] = $this->Admin_model->select_client($param2);	
+			$this->load->view('admin/index',$page_data);
+		
+		}
+		
+		if($param1=='vieweditpwd'){
+			
+			$page_data['page_name'] = 'edit_clientspwd';
 			$page_data['get_client'] = $this->Admin_model->select_client($param2);	
 			$this->load->view('admin/index',$page_data);
 		
@@ -177,7 +209,16 @@ class Admin extends CI_Controller {
 		if($param1=='viewetask'){
 			
 			$page_data['page_name'] = 'reset_clientask';
+			$page_data['userid'] = $param2;
 			$page_data['get_client'] = $this->Admin_model->get_clienttaskdetails($param2);	
+			$this->load->view('admin/index',$page_data);
+		
+		}
+		
+		if($param1=='viewerecords'){
+			
+			$page_data['page_name'] = 'edit_trades';
+			$page_data['get_client'] = $this->Admin_model->get_clientrecords($param2);	
 			$this->load->view('admin/index',$page_data);
 		
 		}

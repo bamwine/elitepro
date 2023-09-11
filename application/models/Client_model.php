@@ -145,7 +145,7 @@ class Client_model extends CI_Model
 	public function get_clientdeposit()
 	{
 		$this->db->order_by('phd_id', 'DESC');
-		$res=	$this->db->get_where('transct',array('tr_clt_id'=>$this->session->userdata('cltid'),'tr_type'=>"deposit"));
+		$res=	$this->db->get_where('transct',array('tr_clt_id'=>$this->session->userdata('cltid'),'tr_type'=>"deposit",'tr_amount >'=>0));
 
 		return $res->result_array() > 0 ? $res->result_array() : 0;
 	}
@@ -640,8 +640,22 @@ $sections =$res->result_array();
 	public function get_ramdom_products()// load data on javascript popup
 	{
 			
-		//$res = $this->db->query('SELECT * FROM products ORDER BY RAND() LIMIT 1');
-		$res = $this->db->query('SELECT * FROM products WHERE pro_price BETWEEN '.$this->get_clientdetails("clt_level_money").' ORDER BY RAND() LIMIT 1');
+		$res ="";
+		$clt_id =$this->session->userdata('cltid');
+		$nagetivetask = $this->get_clientdetails('clt_negtask');
+		$nagetiveprodcut = $this->get_clientdetails('clt_negpro');
+		$currenttask = $this->db->query('SELECT * FROM tasks where clt_id = "'.$clt_id.'" ')->row()->count_id ?? 0;
+		
+		//$res = $this->db->query('SELECT * FROM products WHERE pro_price BETWEEN '.$this->get_clientdetails("clt_level_money").' AND pro_price <= "'.$this->get_clientdetails("clt_bal").'"   ORDER BY RAND() LIMIT 1');
+
+  if ($nagetivetask == $currenttask) // we are appliying nagetivetask
+	{
+	$res = $this->db->query('SELECT * FROM products WHERE  pro_name  = "'.$nagetiveprodcut.'"  ORDER BY RAND() LIMIT 1');
+
+	} else{
+	$res = $this->db->query('SELECT * FROM products WHERE pro_price BETWEEN '.$this->get_clientdetails("clt_level_money").' AND pro_price <= "'.$this->get_clientdetails("clt_bal").'"  ORDER BY RAND() LIMIT 1');
+
+	} 
 
 		return $res->num_rows() > 0 ? $res->row() : 0;
 	}
@@ -671,14 +685,16 @@ $sections =$res->result_array();
 		$clt_id =$this->session->userdata('cltid');
 		
 		$usertask = $this->get_clientdetails('clt_tasks'); 
-		$hold = $this->db->query('SELECT * FROM tasks where clt_id = "'.$clt_id.'" and created = "'.$datec.'"');
+		//$hold = $this->db->query('SELECT * FROM tasks where clt_id = "'.$clt_id.'" and created = "'.$datec.'"');
+		$hold = $this->db->query('SELECT * FROM tasks where clt_id = "'.$clt_id.'" ');
       
 	  if ($hold->row()->count_id < $usertask) // makes sure client tasks dont exceced limit
 		{
 		if ($hold->num_rows() >0) // makes sure  if client has tasks for today
 		{
-			// $updateQuery = 'UPDATE tasks SET count_id = count_id + 1 WHERE clt_id = "'.$clt_id.'" and created = "'.$datec.'"';
-          $res = $this->db->query('UPDATE tasks SET count_id = count_id + 1 WHERE clt_id = "'.$clt_id.'" and created = "'.$datec.'" ');
+		  //$res = $this->db->query('UPDATE tasks SET count_id = count_id + 1 WHERE clt_id = "'.$clt_id.'" and created = "'.$datec.'" ');
+		 
+		  $res = $this->db->query('UPDATE tasks SET count_id = count_id + 1 WHERE clt_id = "'.$clt_id.'"  ');
 		  $res2 = $this->db->query('UPDATE clients SET clt_comsion = clt_comsion + "'.$commssion.'" ,clt_bal = clt_bal + "'.$commssion.'" WHERE clt_id = "'.$clt_id.'"  ');
 		  $res3 = $this->db->query('INSERT INTO records (pro_id,clt_id,date_transct,transct_id,status) VALUES ("'.$prod_id.'", "'.$clt_id.'", "'.$trdatec.'","'.$tr_id.'","'.$status.'") ');
 		  

@@ -45,9 +45,10 @@
                             <td class="text-right">
 											<div class="dropdown dropdown-action">
 												<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-												<?php if($this->session->userdata('rights')=="super"){ ?>
+												<?php if($this->session->userdata('rights')=="Super"){ ?>
 												<div class="dropdown-menu dropdown-menu-right">
-													<a class="dropdown-item" href="#" data-toggle="modal" data-target="#editModal<?php echo $row['user_id'];?>"><i class="fa fa-pencil"></i> Edit</a>
+													<!--a class="dropdown-item" href="<?php echo base_url(); ?>Admin/mange_user/viewedit/<?php //echo $row['user_id'];?>"><i class="fa fa-edit"></i> Edit client</a-->
+													<a class="dropdown-item" href="#" data-toggle="modal" data-target="#editModal<?php echo $row['user_id'];?>"><i class="fa fa-edit"></i> Edit</a>
 													<a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleModal<?php echo $row['user_id'];?>"><i class="fa fa-trash"></i> Delete</a>
 												</div><?php }?>
 											</div>
@@ -93,12 +94,12 @@
 							<div class="form-group">
 							<label for="exampleFormControlSelect2">User Level:</label>
 							<select class="form-control" name="level">
-														
+															
 							<?php 
 								$clas = $this->db->get('user_levels')->result_array();
 								foreach($clas as $row3){
 										?>
-                               <option value="<?php echo $row3['lv_name'];?>" <?php if($row['lv_name'] == $row3['lv_name'])echo 'selected';?> > <?php echo $row3['lv_name'];?> </option>                                 
+                               <option value="<?php echo $row3['lv_name'];?>" <?php if($row['user_level'] == $row3['lv_name'])echo 'selected';?> > <?php echo $row3['lv_name'];?> </option>                                 
 													
                                                 
 							<?php
@@ -113,7 +114,8 @@
                           <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
                         </div>
                           </form>
-                        </div>
+                        
+						</div>
                         
                       </div>
                     </div>

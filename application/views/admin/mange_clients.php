@@ -43,6 +43,8 @@
 												<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
 												<?php // if($this->session->userdata('rights')=="super"){ ?>
 												<div class="dropdown-menu dropdown-menu-right">
+													<a class="dropdown-item" href="<?php echo base_url(); ?>Admin/mange_clients/viewerecords/<?php echo $row['clt_id'];?>"><i class="fa fa-edit"></i> Client Transactions</a>
+													<a class="dropdown-item" href="<?php echo base_url(); ?>Admin/mange_clients/vieweditpwd/<?php echo $row['clt_id'];?>"><i class="fa fa-edit"></i> Reset Password</a>
 													<a class="dropdown-item" href="<?php echo base_url(); ?>Admin/mange_clients/viewetask/<?php echo $row['clt_id'];?>"><i class="fa fa-edit"></i> Reset Task</a>
 													<a class="dropdown-item" href="<?php echo base_url(); ?>Admin/mange_clients/viewedit/<?php echo $row['clt_id'];?>"><i class="fa fa-edit"></i> Edit client</a>
 													<a class="dropdown-item" href="#" data-toggle="modal" data-target="#editModal<?php echo $row['clt_id'];?>"><i class="fa fa-dollar-sign"></i> Add Money</a>

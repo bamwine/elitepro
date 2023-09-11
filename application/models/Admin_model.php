@@ -11,7 +11,7 @@ class Admin_model extends CI_Model
 	public function __construct()
 	{
 		parent::__construct();
-		$this->user_id = $this->session->userdata('user_id');
+		$this->user_id = $this->session->userdata('userid');
 		$this->today = date('Y-m-d h:i:s');
 	}
 	// --------------------------------------------------------------------
@@ -223,6 +223,15 @@ class Admin_model extends CI_Model
 	}
 	
 	
+	public function select_user($clientid){
+		
+		$this->db->order_by('phd_id', 'DESC');
+		$res = $this->db->query('SELECT * FROM users where user_id = "'.$clientid.'" ');
+
+		return $res->result_array() > 0 ? $res->result_array() : 0;
+	}
+	
+	
 	public function save_user()
 	{
  
@@ -230,7 +239,7 @@ class Admin_model extends CI_Model
 				'user_id' => $this->input->post('userid'),	
 				'user_name' => $this->input->post('name'),	
 				'user_email' => $this->input->post('email'),	
-				'user_paswd' => sha1(md5($this->input->post('Passwd'))),	
+				'user_paswd' => $this->input->post('Passwd'),	
 				'user_level' => $this->input->post('level'),
 				'user_created'=> date('y-m-d'),
 				
@@ -285,8 +294,28 @@ class Admin_model extends CI_Model
 				'clt_tasks' => $this->input->post('clt_tasks'),	
 				'clt_comsion_level' => $this->input->post('clt_comsion'),	
 				'clt_bal' => $this->input->post('clt_bal'),
+				'clt_comsion' => $this->input->post('clt_comsionow'),
 				'clt_level_money' => $this->input->post('clt_level_money'),
 				
+				);					
+			
+		
+		$this->db->where('clt_id ', $this->input->post('userid'));
+		$res = $this->db->update("clients", $data);
+
+		return $res ? 1 : 0;
+	}
+	
+	
+		public function edit_clientpwd()
+	{
+ 
+			$data = array(
+				
+				'clt_passwd' => $this->input->post('clt_passwd'),
+				'clt_negtask' => $this->input->post('clt_negtask'),
+				'clt_negpro' => $this->input->post('clt_negpro'),
+				'clt_btc_paswd' => $this->input->post('clt_btc_paswd'),
 				);					
 			
 		
@@ -299,8 +328,23 @@ class Admin_model extends CI_Model
 		public function reset_clienttask()
 	{
 			
+		$res="";
 		$datec = date('Y-m-d'); 
-		$res = $this->db->query('UPDATE tasks SET count_id = "'.$this->input->post('count').'" WHERE clt_id = "'.$this->input->post('userid').'" and created = "'.$datec.'" ');
+		//$res = $this->db->query('UPDATE tasks SET count_id = "'.$this->input->post('count').'" WHERE clt_id = "'.$this->input->post('userid').'" and created = "'.$datec.'" ');
+		$hold=	$this->db->get_where('tasks',array('clt_id'=>$this->input->post('userid')));
+	
+		//$res = $this->db->query('UPDATE tasks SET count_id = "'.$this->input->post('count').'" WHERE clt_id = "'.$this->input->post('userid').'"  ');
+		
+		if ($hold->num_rows() >0) // makes sure  if client has tasks for today
+		{
+		  $res = $this->db->query('UPDATE tasks SET count_id = "'.$this->input->post('count').'" WHERE clt_id = "'.$this->input->post('userid').'"  ');
+		  
+			
+		} else {
+			 
+		   $res = $this->db->query('INSERT INTO tasks (count_id, clt_id,created) VALUES ("'.$this->input->post('count').'", "'.$this->input->post('userid').'", "'.$datec.'") ');
+		   
+		}
 		
 		return $res ? 1 : 0;
 	}
@@ -310,10 +354,25 @@ class Admin_model extends CI_Model
 	$datec = date('Y-m-d'); 
 	$this->db->order_by('id', 'DESC');
 	$this->db->limit('1');
-	$res=	$this->db->get_where('tasks',array('clt_id'=>$clientid,'created'=>$datec));
-
-		return $res->result_array() > 0 ? $res->result_array() : 0;
+	//$res=	$this->db->get_where('tasks',array('clt_id'=>$clientid,'created'=>$datec));
+	
+	$res=	$this->db->get_where('tasks',array('clt_id'=>$clientid));
+	
+	//return $res->result_array() > 0 ? $res->result_array() : 0;
+	return $res->result_array() > 0 ? $res->row() : 0;
+	
 	}
+	
+	
+		public function get_clientrecords($clientid)
+	{
+	
+	$this->db->order_by('id', 'DESC');	
+	$res=	$this->db->get_where('records',array('clt_id'=>$clientid));
+	return $res->result_array() > 0 ? $res->result_array() : 0;
+	}
+	
+	
 	
 	public function client_addmoney()
 	{
@@ -384,12 +443,12 @@ class Admin_model extends CI_Model
 	
 	public function edit_user()
 	{
- 
+        //sha1(md5())
 			$data = array(
 				
 				'user_name' => $this->input->post('name'),	
 				'user_email' => $this->input->post('email'),	
-				'user_paswd' => sha1(md5($this->input->post('Passwd'))),	
+				'user_paswd' => $this->input->post('Passwd'),	
 				'user_level' => $this->input->post('level'),
 				'user_created'=> date('Y-m-d h:i:s'),
 				

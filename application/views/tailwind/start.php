@@ -137,8 +137,10 @@
                         <div class="van-button__content">
                           <!---->
                           <span class="van-button__text">
-                            <span class="font-semibold text-black">Start <span class="ml-2"><?php echo $this->db->get_where('tasks' , array('clt_id' =>$clt_id =$this->session->userdata('cltid'),'created' =>date('Y-m-d')))->row()->count_id ?? '0';?>/<?php echo  $this->Client_model->get_clientdetails('clt_tasks'); ?></span>
-                            </span>
+                            <span class="font-semibold text-black">Start <span class="ml-2"><?php echo $this->db->get_where('tasks' , array('clt_id' =>$clt_id =$this->session->userdata('cltid')))->row()->count_id ?? '0';?>/<?php echo  $this->Client_model->get_clientdetails('clt_tasks'); ?></span>
+                            <!--span class="font-semibold text-black">Start <span class="ml-2"><?php echo $this->db->get_where('tasks' , array('clt_id' =>$clt_id =$this->session->userdata('cltid'),'created' =>date('Y-m-d')))->row()->count_id ?? '0';?>/<?php echo  $this->Client_model->get_clientdetails('clt_tasks'); ?></span-->
+                            
+							</span>
                           </span>
                           <!---->
                         </div>

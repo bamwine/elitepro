@@ -109,7 +109,7 @@
                <div class="van-tabs">
       <div class="van-tabbar" style="border-color: #fafbfd; background: #fafbfd;">
         <div class="van-tab" onclick="changeTab(0)" id="tab0">Deposit</div>
-        <div class="van-tab" onclick="changeTab(1)" id="tab1">History</div>
+        <!--div class="van-tab" onclick="changeTab(1)" id="tab1">History</div-->
         
       </div>
       

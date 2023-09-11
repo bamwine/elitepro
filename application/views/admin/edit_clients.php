@@ -41,11 +41,15 @@
 							</div>
 							
 							<div class="row">
-                            <div class="form-group col-6">
+                            <div class="form-group col-4">
                               <label for="recipient-name" class="col-form-label">Account Balance:</label>
                               <input type="text" class="form-control"  onload="calculatevip();" onchange="calculatevip();" id="clt_bal" name="clt_bal" value="<?php echo $row['clt_bal'];?> ">
                             </div>
-							<div class="form-group col-6">
+							<div class="form-group col-4">
+                              <label for="recipient-name" class="col-form-label">Your Current Commission:</label>
+                              <input type="text" class="form-control"   id="clt_comsionow" name="clt_comsionow" value="<?php echo $row['clt_comsion'];?> ">
+                            </div>
+							<div class="form-group col-4">
                               <label for="recipient-name" class="col-form-label">Level Money:</label>
                               <input type="text" class="form-control" readonly onchange="calculatevip()" id="clt_money" name="clt_level_money"  value="<?php echo $row['clt_level_money'];?> ">
                             </div>
@@ -56,7 +60,7 @@
 							
 							
 						<div class="form-group">
-                          <button type="submit" class="btn btn-success">Edit User</button>
+                          <button type="submit" class="btn btn-success">Edit Client</button>
                           <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
                         </div>
                           </form>

@@ -589,13 +589,13 @@ class Client extends CI_Controller {
 	}
 	
 	public function task_man($param="")
-	{	
+	{	// managing user task of goods bought
 	
 	if ($this->session->userdata('cltid') == '')
             redirect(base_url() . 'Client', 'refresh');
 		
 	
-		if (($this->Client_model->get_clientbal()>0)) 
+		if (($this->Client_model->get_clientbal()>=50)) 
 		{
 			
 		$save = $this->Client_model->task_manger();
