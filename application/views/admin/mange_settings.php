@@ -160,7 +160,17 @@
                       <input class="typeahead" type="text" name="customercare" value="<?php echo $this->db->get_where('settings' , array('type' =>'customerservice'))->row()->description;?>">
 									
                     </div>
-                  </div>         
+                  </div>  
+					<div class="form-group">
+					<label>Customer Care Link2 Telegram</label>
+					<div class="input-group">
+					  <div class="input-group-prepend">
+						<span class="input-group-text">%</span>
+					  </div>
+					  <input class="typeahead" type="text" name="customercare2" value="<?php echo $this->db->get_where('settings' , array('type' =>'customerservice2'))->row()->description;?>">
+									
+					</div>
+					</div> 				  
 						
 
 				<div class="form-group">

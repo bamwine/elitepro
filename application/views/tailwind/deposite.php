@@ -12,8 +12,7 @@
 	<link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/daisyui@3.5.0_dist_full.css">
     <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/tailwind.min.css">
     <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/flowbite_1.8.0_flowbite.min.css">
-    <script src="<?php echo base_url();?>phd/tailwind/vue@3.3.4_dist_vue.global.min.js"></script>
-    <script src="<?php echo base_url();?>phd/tailwind/axios@1.4.0_dist_axios.min.js"></script>
+   
     <script src="<?php echo base_url();?>phd/tailwind/custom.js"></script>
     <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/custom.css">
     <script src="<?php echo base_url();?>phd/tailwind/cdn.tailwindcss.com_3.3.3.js" />
@@ -120,7 +119,7 @@
                       <div class="flex flex-col justify-between p-4 box-border rounded-xl bg-[url('<?php echo base_url();?>phd/tailwind/bg3.png')] bg-cover shadow">
                         <div class="text-white opacity-70 text-sm font-semibold">Account Amount</div>
                         <div class="flex mt-4">
-                          <div class="text-white text-3xl font-bold flex items-center"><?php echo  $this->Client_model->get_clientdetails('clt_bal'); ?></div>
+                          <div class="text-white text-3xl font-bold flex items-center"><?php echo   round($this->Client_model->get_clientdetails('clt_bal'), 3);; ?></div>
                           <div class="text-white text-sm font-bold flex items-center ml-2 pt-[12px]">USDT</div>
                         </div>
                       </div>
@@ -130,6 +129,19 @@
                             <!---->
                             <span class="van-button__text">
                               <span class="font-semibold text-white">Contact Customer Service</span>
+                            </span>
+                            <!---->
+                          </div>
+                        </a>
+						
+                      </div>
+					  <div class="w-full mt-6">
+                        
+						<a type="button" class="van-button van-button--default van-button--large" style="color: white; background: #FAAF36; border-color: #FAAF36;" href="<?php echo $this->db->get_where('settings' , array('type' =>'customerservice2'))->row()->description;?>">
+                          <div class="van-button__content">
+                            <!---->
+                            <span class="van-button__text">
+                              <span class="font-semibold text-white">Contact Customer Service Telegram</span>
                             </span>
                             <!---->
                           </div>

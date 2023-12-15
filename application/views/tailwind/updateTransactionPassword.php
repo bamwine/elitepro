@@ -10,8 +10,7 @@
     <?php include 'css.php';?>
 	<link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png" />
 
-    <script src="<?php echo base_url();?>phd/tailwind/vue@3.3.4_dist_vue.global.min.js"></script>
-    <script src="<?php echo base_url();?>phd/tailwind/axios@1.4.0_dist_axios.min.js"></script>
+   
     <script src="<?php echo base_url();?>phd/tailwind/custom.js"></script>
     <link rel="stylesheet" href="<?php echo base_url();?>phd/tailwind/custom.css">
     <script src="<?php echo base_url();?>phd/tailwind/cdn.tailwindcss.com_3.3.3.js" />

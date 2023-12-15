@@ -106,7 +106,7 @@
         level = "VIP4";
 		ordersperday=55;
 		commssion=0.5;
-		money="5000 AND 100000";
+		money="5000 AND 1000000";
       } 
 
 	 document.getElementById("clt_level").value=level;

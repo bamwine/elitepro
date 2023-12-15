@@ -35,7 +35,7 @@
                             <td><?php echo $row['clt_id'];?></td>
                             <td><?php echo $row['clt_name'];?></td>
                             <td><?php echo $row['clt_phone'];?></td>
-                            <td><?php echo number_format($row['clt_bal'],3);?></td>
+                            <td><?php echo round($row['clt_bal'],3);?></td>
                             <td><?php echo $this->Admin_model->get_mysubonates($row['clt_ref']);?></td>
                             <td><?php echo $row['clt_created'];?></td>                            
                             <td class="text-right">

@@ -150,6 +150,10 @@ class Admin_model extends CI_Model
          $this->db->where('type' , 'customerservice');
 		 $this->db->update('settings' , $data);
 		 
+		 $data['description'] = $this->input->post('customercare2');
+         $this->db->where('type' , 'customerservice2');
+		 $this->db->update('settings' , $data);
+		 
 		 $data['description'] = $this->input->post('procomission');
          $this->db->where('type' , 'product_commission');
 		 $this->db->update('settings' , $data);

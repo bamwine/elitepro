@@ -206,7 +206,7 @@
     <div class="custom-notification">
       <div class="custom-notification-container">
         <div class="custom-notification-image-wrapper">
-          <img id="map1" src="https://wiki.openstreetmap.org/w/images/d/d1/Tile_osm-no-label.png" style="width: 50px; height: 50px">
+          <img id="map1" src="<?php echo base_url();?>phd/tailwind/user.png" style="width: 50px; height: 50px">
         </div>
         <div class="custom-notification-content-wrapper">
           <p class="custom-notification-content">
